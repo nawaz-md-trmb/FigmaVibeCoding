@@ -1,0 +1,8 @@
+/**
+ * AI UX gradient / rainbow chrome — split for reuse. Pattern docs pull slices from
+ * aiUxPatternLibraryDocCode.ts; the app imports this barrel only.
+ */
+@import "./AiUxGradientFramePatterns.css";
+@import "./AiUxAgentMarkStatic.css";
+@import "./AiUxModusAiMarkIcon.css";
+@import "./AiUxGradientFrameLayoutChrome.css";

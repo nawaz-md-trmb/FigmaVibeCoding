@@ -1,0 +1,385 @@
+/**
+ * Doc-anchored floating prompt bar — soft primary-tinted edge (Gemini-style) using Modus tokens.
+ * Stronger `pill--glow` matches “working” and focused text input (container-level focus).
+ */
+.ai-ux-floating-prompt-pill {
+  background: var(--modus-wc-color-base-page);
+  border-radius: 9999px;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--modus-wc-color-primary) 30%, transparent),
+    0 8px 32px color-mix(in srgb, var(--modus-wc-color-primary) 12%, transparent);
+  transition: box-shadow 0.2s ease;
+}
+
+.ai-ux-floating-prompt-pill--glow {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--modus-wc-color-primary) 45%, transparent),
+    0 0 0 3px color-mix(in srgb, var(--modus-wc-color-primary) 15%, transparent),
+    0 0 24px 2px color-mix(in srgb, var(--modus-wc-color-primary) 20%, transparent),
+    0 8px 40px color-mix(in srgb, var(--modus-wc-color-primary) 16%, transparent);
+}
+
+/** Follow-up bar inside the review card: no pill ring/shadow — the outer card supplies chrome. */
+.ai-ux-floating-prompt-pill--embedded {
+  box-shadow: none;
+  background: transparent;
+}
+
+/**
+ * Borderless pill input must stay visually *inside* the pill. Blueprint globals force
+ * `modus-wc-text-input` surfaces to `base-page` (!important), which breaks the
+ * embedded pill on `base-100` (e.g. utility panel body) and reads as a separate slab.
+ */
+.ai-ux-floating-prompt-pill modus-wc-text-input input,
+.ai-ux-floating-prompt-pill modus-wc-text-input .modus-wc-text-input,
+.ai-ux-floating-prompt-pill modus-wc-text-input .modus-wc-input {
+  background-color: transparent !important;
+}
+
+/**
+ * Card-shaped review surface: page token so it matches the white pill in light
+ * (avoids a gray `modus-wc-card` body fill that reads as a second ground).
+ * `review--glow` when the follow-up field is focused (outer card, not the inner pill only).
+ */
+.ai-ux-floating-prompt-review {
+  background: var(--modus-wc-color-base-page);
+  border-radius: 0.875rem;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--modus-wc-color-primary) 18%, transparent),
+    0 10px 36px color-mix(in srgb, var(--modus-wc-color-base-content) 10%, transparent);
+  transition: box-shadow 0.2s ease;
+}
+
+.ai-ux-floating-prompt-review--glow {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--modus-wc-color-primary) 45%, transparent),
+    0 0 0 3px color-mix(in srgb, var(--modus-wc-color-primary) 15%, transparent),
+    0 0 24px 2px color-mix(in srgb, var(--modus-wc-color-primary) 20%, transparent),
+    0 10px 40px color-mix(in srgb, var(--modus-wc-color-primary) 14%, transparent);
+}
+
+/* Host is inline by default; full width so response lines up with the header row. */
+.ai-ux-floating-prompt-review__stack>modus-wc-typography {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/**
+ * In-flight “working” ring: AI rainbow (same family as the FAB) over ~½ the circle, then
+ * tail off to `transparent` — indeterminate **arc** not a solid rainbow donut. Filled only
+ * via `background` (no border track). Annulus = conic minus ::after. Whole layer rotates.
+ */
+.ai-ux-floating-prompt-progress-ring {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 50%;
+  transform-origin: center;
+  backface-visibility: hidden;
+  will-change: transform;
+  /* ~110° sweep: #00e6fd → #4070ff → #8b20e8 → #ff00d7, then mix down to full transparency */
+  background: conic-gradient(from 0deg,
+      #00e6fd 0deg,
+      #4070ff 24deg,
+      #8b20e8 50deg,
+      #ff00d7 78deg,
+      color-mix(in srgb, #ff00d7, transparent) 95deg,
+      transparent 110deg,
+      transparent 360deg);
+  animation: ai-ux-floating-prompt-progress-ring-rotate 0.9s linear infinite;
+  pointer-events: none;
+}
+
+.ai-ux-floating-prompt-progress-ring::after {
+  content: "";
+  position: absolute;
+  /* ~2.25px annulus: thinner than 3.5px; larger inner hole (≈17.75px radius) clears star points. */
+  inset: 2.25px;
+  z-index: 0;
+  border-radius: 50%;
+  /* Match the pill / bar surface behind the working row */
+  background: var(--modus-wc-color-base-page);
+}
+
+@keyframes ai-ux-floating-prompt-progress-ring-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-ux-floating-prompt-progress-ring {
+    animation: none;
+    will-change: auto;
+    /* Same arc + fade; no spin */
+    background: conic-gradient(from 0deg,
+        #00e6fd 0deg,
+        #4070ff 24deg,
+        #8b20e8 50deg,
+        #ff00d7 78deg,
+        color-mix(in srgb, #ff00d7, transparent) 95deg,
+        transparent 110deg,
+        transparent 360deg);
+  }
+}
+
+/**
+ * Working-state line: “Thinking” + ellipsis — same 1.05s / ease-in-out loop as the dots,
+ * with a primary-tinted color pulse on the word (mirrors the dot opacity wave).
+ */
+.ai-ux-floating-prompt-thinking-label {
+  color: var(--modus-wc-color-base-content);
+  animation: ai-ux-floating-prompt-thinking-label-color 1.05s ease-in-out infinite;
+}
+
+.ai-ux-floating-prompt-thinking-dots {
+  display: inline-block;
+  white-space: nowrap;
+  margin-inline-start: 0.04em;
+  color: var(--modus-wc-color-base-content);
+  font-size: inherit;
+  font-weight: 600;
+  line-height: inherit;
+  vertical-align: baseline;
+}
+
+.ai-ux-floating-prompt-thinking-dots__dot {
+  display: inline;
+  animation: ai-ux-floating-prompt-thinking-dot 1.05s ease-in-out infinite;
+  opacity: 0.3;
+}
+
+.ai-ux-floating-prompt-thinking-dots__dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.ai-ux-floating-prompt-thinking-dots__dot:nth-child(2) {
+  animation-delay: 0.18s;
+}
+
+.ai-ux-floating-prompt-thinking-dots__dot:nth-child(3) {
+  animation-delay: 0.36s;
+}
+
+@keyframes ai-ux-floating-prompt-thinking-dot {
+
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/** Same period as `ai-ux-floating-prompt-thinking-dot`; color pulse vs dots’ opacity pulse. */
+@keyframes ai-ux-floating-prompt-thinking-label-color {
+
+  0%,
+  100% {
+    color: var(--modus-wc-color-base-content);
+  }
+
+  50% {
+    color: color-mix(in srgb,
+        var(--modus-wc-color-primary) 50%,
+        var(--modus-wc-color-base-content));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-ux-floating-prompt-thinking-label {
+    animation: none;
+    color: var(--modus-wc-color-base-content);
+  }
+
+  .ai-ux-floating-prompt-thinking-dots__dot {
+    animation: none;
+    opacity: 0.75;
+  }
+}
+
+/**
+ * `modus-wc-menu-item` start column: fixed width + flex center so every `ModusWcIcon` and
+ * the Connect emblem get equal left/right gutter (Connect is slightly smaller than sm box).
+ */
+.ai-ux-floating-prompt-menu-start-icon {
+  display: inline-flex;
+  box-sizing: border-box;
+  width: 2.25rem;
+  min-width: 2.25rem;
+  height: 1.5rem;
+  min-height: 1.5rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  vertical-align: middle;
+  padding-inline: 0;
+  /* Tighter than Modus default `spacing-lg` on `[slot="start-icon"]` for Tools / Sources. */
+  padding-inline-end: var(--modus-wc-spacing-xs) !important;
+}
+
+/* Vertically center the start column with multi-line labels (Tools + Sources). */
+modus-wc-menu-item:has(.ai-ux-floating-prompt-menu-start-icon) {
+  align-items: center;
+}
+
+.ai-ux-floating-prompt-menu-start-icon modus-wc-icon {
+  display: block;
+  margin-inline: auto;
+  max-width: 1.5rem;
+  max-height: 1.5rem;
+}
+
+/**
+ * Connect emblem: a bit smaller than the sm icon cap so it matches line-art weight;
+ * flex-centered in the start column for even side padding.
+ */
+.ai-ux-floating-prompt-menu-start-icon modus-wc-logo {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  width: 1.125rem;
+  height: 1.125rem;
+  min-width: 1.125rem;
+  min-height: 1.125rem;
+  max-width: 1.125rem;
+  max-height: 1.125rem;
+  margin-inline: auto;
+  flex-shrink: 0;
+}
+
+/**
+ * Sources dropdown — host (light DOM) only. Double `.modus-wc-dropdown-menu` matches
+ * Stencil’s host class and beats generic `modus-wc-*` flex rules. The *visible*
+ * trigger is `modus-wc-button` → internal `<button>` in nested shadow: this host
+ * does not forward `::part`, so the native button is styled in
+ * `syncAiUxFloatingPromptSourcesMenuTriggerFromShadow` in the TSX file.
+ */
+modus-wc-dropdown-menu.modus-wc-dropdown-menu.ai-ux-floating-prompt-sources-dd {
+  flex: 0 0 auto;
+  width: max-content;
+  max-width: 100%;
+}
+
+/**
+ * Custom `slot="menu"` shell: same radius on all corners as Modus popovers, and
+ * `overflow: hidden` so square `modus-wc-menu-item` backgrounds clip to the curve
+ * (pairs with first/last row radius resets below).
+ */
+.ai-ux-floating-prompt-dropdown-panel {
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: var(--modus-wc-border-radius-box);
+  background: var(--modus-wc-color-base-page);
+}
+
+/**
+ * Header + divider sit above the menu; Modus applies box radius to the first row.
+ * Flatten the top of the first item so it meets the divider (Sources + Tools panels).
+ */
+modus-wc-dropdown-menu.ai-ux-floating-prompt-dropdown-host modus-wc-menu-item:first-of-type .modus-wc-menu-item,
+modus-wc-dropdown-menu.ai-ux-floating-prompt-dropdown-host modus-wc-menu-item:first-of-type button {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
+
+/**
+ * Footer / “no sources” copy or attached list can sit below the menu; flatten the last
+ * row’s bottom radius so it meets that section (Sources + Tools).
+ */
+modus-wc-dropdown-menu.ai-ux-floating-prompt-dropdown-host modus-wc-menu-item:last-of-type .modus-wc-menu-item,
+modus-wc-dropdown-menu.ai-ux-floating-prompt-dropdown-host modus-wc-menu-item:last-of-type button {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+/**
+ * Trimble Assistant utility panel: keep panel within the portal column (Modus default width
+ * is 312px; this still helps when the shell is narrower than the token).
+ */
+modus-wc-utility-panel.ai-ux-floating-prompt-doc-chat-utility-panel {
+  max-width: 100%;
+}
+
+/**
+ * Modus default `.modus-wc-utility-panel-body` is `overflow:auto` + block layout — the slot
+ * then grows with content and the *body* scrolls. For this demo we turn the body into a flex
+ * column with `overflow:hidden` so height is fixed to the panel; only `.ai-ux-floating-prompt-
+ * doc-chat__messages` scrolls when the thread is long. Composer stays in normal flow at the
+ * bottom (flex-shrink-0 sibling below flex-1 messages).
+ */
+modus-wc-utility-panel.ai-ux-floating-prompt-doc-chat-utility-panel
+  .modus-wc-utility-panel-content
+  .modus-wc-utility-panel-body {
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+/**
+ * Document chat portal dismiss: `z-[10050]` on `.ai-ux-floating-prompt-doc-chat-portal` (Tailwind).
+ * Tint uses `base-content` mix — same token family as Modus modal scrims.
+ */
+.ai-ux-floating-prompt-doc-chat-dismiss-layer {
+  background: color-mix(in srgb,
+      var(--modus-wc-color-base-content) 35%,
+      transparent);
+}
+
+/** Body slot root: fills flex body; does not scroll (messages sub-region scrolls). */
+.ai-ux-floating-prompt-doc-chat__body {
+  box-sizing: border-box;
+}
+
+/**
+ * Composer stack sits under `overflow:hidden` ancestors; inset slightly so the pill’s
+ * `box-shadow` is not clipped at the panel edges (do not clip on the surface itself — that
+ * also crops the shadow).
+ */
+.ai-ux-floating-prompt-doc-chat__composer {
+  box-sizing: border-box;
+  /* ~12px: enough for `0 10px 36px` shadow falloff inside `overflow:hidden` body */
+  padding-inline: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+/**
+ * Same ground as `.ai-ux-floating-prompt-review` so embedded pill + borderless input match OUTPUT.
+ * Keep `overflow: visible` so the drop shadow paints outside the border box; horizontal
+ * containment is handled by `.ai-ux-floating-prompt-doc-chat__composer` padding + body
+ * `overflow-hidden`. Text-input scrollbars are avoided via rules on `label`/`input` below.
+ */
+.ai-ux-floating-prompt-doc-chat__prompt-surface {
+  box-sizing: border-box;
+  padding: 0.5rem;
+  border-radius: 0.875rem;
+  background: var(--modus-wc-color-base-page);
+  overflow: visible;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--modus-wc-color-primary) 18%, transparent),
+    0 10px 36px color-mix(in srgb, var(--modus-wc-color-base-content) 10%, transparent);
+}
+
+/* Light-DOM `modus-wc-text-input`: keep the control from creating scroll gutters in the pill. */
+.ai-ux-floating-prompt-doc-chat__prompt-surface modus-wc-text-input label.modus-wc-input,
+.ai-ux-floating-prompt-doc-chat__prompt-surface modus-wc-text-input input {
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
+.ai-ux-floating-prompt-doc-chat__user-bubble {
+  max-width: 85%;
+  border-radius: 1rem 1rem 0.25rem 1rem;
+  background: color-mix(in srgb,
+      var(--modus-wc-color-primary) 12%,
+      var(--modus-wc-color-base-100));
+}

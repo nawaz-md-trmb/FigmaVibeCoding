@@ -1,0 +1,161 @@
+/* Section Hero — editorial band with optional Bayer dither background */
+
+.section-hero-pattern-container,
+[data-section-hero].section-hero-pattern-container {
+  container-type: inline-size;
+  container-name: section-hero;
+}
+
+.section-hero[data-section-hero] {
+  cursor: pointer;
+}
+
+.section-hero {
+  border-top: 1px solid var(--modus-wc-color-base-200);
+}
+
+.section-hero__marker {
+  letter-spacing: 0.12em;
+}
+
+.section-hero__marker .section-hero__marker-index,
+modus-wc-typography.section-hero__marker .section-hero__marker-index {
+  color: var(--modus-wc-color-primary);
+}
+
+.section-hero__eyebrow-slash {
+  color: var(--modus-wc-color-base-content-low-contrast);
+}
+
+.section-hero.section-hero-dither-band {
+  padding-bottom: 0;
+}
+
+.section-hero__marker-wrap,
+.section-hero__content {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Index row sits directly under the top border; body padding stays on __content */
+.section-hero__marker-wrap {
+  padding-top: 0.75rem;
+}
+
+.section-hero--has-marker .section-hero__content {
+  padding-top: 0;
+  padding-bottom: calc(0.75rem + 1rem);
+}
+
+.section-hero--has-marker .section-hero__body {
+  margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .section-hero--has-marker .section-hero__body {
+    margin-top: 1.5rem;
+  }
+
+  .section-hero--has-marker .section-hero__content {
+    padding-bottom: calc(0.75rem + 1.5rem);
+  }
+}
+
+.section-hero:not(.section-hero--has-marker) .section-hero__content {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+@media (min-width: 640px) {
+
+  .section-hero__marker-wrap,
+  .section-hero__content {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .section-hero:not(.section-hero--has-marker) .section-hero__content {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .section-hero:not(.section-hero--has-marker) .section-hero__content {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-hero:not(.section-hero--has-marker) .section-hero__content {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+}
+
+.section-hero__dither {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* Primary wash from the bottom edge — inverse of page-header / atom hero top gradient */
+.section-hero.section-hero-dither-band::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 140px;
+  z-index: 0;
+  pointer-events: none;
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: inherit;
+  background: linear-gradient(to top,
+      var(--modus-wc-color-primary) 0%,
+      color-mix(in sRGB, var(--modus-wc-color-primary) 55%, transparent) 28%,
+      color-mix(in sRGB, var(--modus-wc-color-primary) 22%, transparent) 58%,
+      transparent 100%);
+  opacity: 0.1;
+}
+
+[data-theme="modus-modern-dark"] .section-hero.section-hero-dither-band::after {
+  background: linear-gradient(to top,
+      color-mix(in sRGB, var(--modus-wc-color-primary) 30%, transparent) 0%,
+      color-mix(in sRGB, var(--modus-wc-color-primary) 18%, transparent) 32%,
+      color-mix(in sRGB, var(--modus-wc-color-primary) 8%, transparent) 62%,
+      transparent 100%);
+  opacity: 1;
+}
+
+.section-hero__dither .dither-wave-background__fallback {
+  background-color: transparent;
+}
+
+.section-hero__headline-line,
+.section-hero__headline-line .modus-wc-typography {
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.section-hero__headline-line--accent,
+.section-hero__headline-line--accent .modus-wc-typography {
+  color: var(--modus-wc-color-primary);
+}
+
+.section-hero__description,
+.section-hero__description .modus-wc-typography {
+  line-height: 1.45;
+}
+
+.section-hero--centered .section-hero__content {
+  pointer-events: none;
+}
+
+.section-hero--centered .section-hero__content>* {
+  pointer-events: none;
+}

@@ -1,0 +1,23 @@
+/**
+ * Static fill for agent marks (Suggestion preview) — same diagonal ramp as
+ * `.modus-ai-mark-gradient-icon` / Trimble AI Blue → Pink mid-stops (see AiUxModusAiMarkIcon.css).
+ */
+.ai-ux-agent-mark-static {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  background-image: linear-gradient(
+    to bottom right,
+    #00e6fd 0%,
+    #0078f0 28%,
+    #6b2cff 55%,
+    #d010d8 82%,
+    #ff00d7 100%
+  );
+}

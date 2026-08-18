@@ -1,0 +1,31 @@
+/**
+ * Chat Bubble pattern — transcript band (see .chat-bubble-pattern-surface modifiers).
+ *
+ * Sender (--sender / legacy --outgoing): base-100 fill + asymmetric radius (square bottom-trailing corner).
+ * Responder (--responder / legacy --incoming): no bubble chrome (transparent, no rounding)—assistant text/media
+ * sits flush on the page beside avatar or emblem rows.
+ */
+.chat-bubble-pattern-surface {
+  background-color: var(--modus-wc-color-base-100);
+}
+
+.chat-bubble-pattern-surface--page {
+  background-color: var(--modus-wc-color-base-page);
+}
+
+.chat-bubble-pattern-bubble {
+  box-sizing: border-box;
+  color: var(--modus-wc-color-base-content);
+}
+
+.chat-bubble-pattern-bubble--sender,
+.chat-bubble-pattern-bubble--outgoing {
+  background-color: var(--modus-wc-color-base-100);
+  border-radius: 1rem 1rem 0 1rem;
+}
+
+.chat-bubble-pattern-bubble--responder,
+.chat-bubble-pattern-bubble--incoming {
+  background-color: transparent;
+  border-radius: 0;
+}

@@ -1,0 +1,75 @@
+/* Color Picker pattern – width cap (wrapper owns layout; customClass is inner article only) */
+.color-picker-shell {
+  width: 100%;
+  max-width: 256px;
+  min-width: 0;
+  align-self: flex-start;
+  box-sizing: border-box;
+}
+
+.color-picker-shell modus-wc-card {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Color Picker pattern – card drop shadow */
+.color-picker-pattern {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Color Picker pattern – checkerboard for transparency preview */
+.color-picker-checkerboard {
+  background-color: var(--modus-wc-color-base-page);
+  background-image:
+    linear-gradient(45deg, var(--modus-wc-color-base-200) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--modus-wc-color-base-200) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--modus-wc-color-base-200) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--modus-wc-color-base-200) 75%);
+  background-size: 8px 8px;
+  background-position: 0 0, 0 4px, 4px -4px, -4px 0px;
+}
+
+/* Color Picker pattern – saturation/value indicator ring (2px page-bg + contrast outline) */
+.color-picker-sv-indicator {
+  box-shadow: 0 0 0 2px var(--modus-wc-color-base-page), 0 0 0 3px var(--modus-wc-color-base-content) !important;
+}
+
+/* Color Picker pattern – hue bar indicator (2px page-bg + contrast outline) */
+.color-picker-hue-indicator {
+  box-shadow: 0 0 0 2px var(--modus-wc-color-base-page), 0 0 0 3px var(--modus-wc-color-base-content) !important;
+}
+
+/* Color Picker pattern – selected palette swatch (2px page-bg + contrast outline) */
+.color-picker-swatch-selected {
+  box-shadow: 0 0 0 2px var(--modus-wc-color-base-page), 0 0 0 3px var(--modus-wc-color-base-content) !important;
+}
+
+/* Color Picker pattern – button group fills full width of card */
+.color-picker-pattern modus-wc-button-group {
+  width: 100% !important;
+  display: flex !important;
+}
+
+.color-picker-pattern modus-wc-button-group modus-wc-button,
+.color-picker-pattern modus-wc-button-group modus-wc-button button {
+  flex: 1 !important;
+  min-width: 0 !important;
+}
+
+/* Color Picker pattern – constrain inputs to container (prevent overflow) */
+.color-picker-pattern modus-wc-text-input,
+.color-picker-pattern modus-wc-slider {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+
+.color-picker-pattern modus-wc-text-input input,
+.color-picker-pattern modus-wc-text-input .modus-wc-text-input,
+.color-picker-pattern modus-wc-text-input .modus-wc-input {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}

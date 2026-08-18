@@ -1,0 +1,115 @@
+/* Logo Marquee — trusted-by band with scrolling product logos (import with LogoMarquee.tsx) */
+
+.logo-marquee__shell {
+  --logo-marquee-inset-x: 1rem;
+  --logo-marquee-fade-width: 2rem;
+  background-color: var(--modus-wc-color-base-page);
+  box-shadow:
+    inset 0 2px 0 0 var(--modus-wc-color-primary-pale),
+    inset 0 -2px 0 0 var(--modus-wc-color-primary-pale);
+}
+
+.logo-marquee__eyebrow,
+.logo-marquee__eyebrow .modus-wc-typography {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+
+.logo-marquee__headline,
+.logo-marquee__headline .modus-wc-typography {
+  font-weight: 300;
+}
+
+@media (min-width: 640px) {
+  .logo-marquee__shell {
+    --logo-marquee-inset-x: 1.25rem;
+    --logo-marquee-fade-width: 2.5rem;
+  }
+}
+
+.logo-marquee__viewport {
+  display: flex;
+  align-items: center;
+  min-height: 5rem;
+  isolation: isolate;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 var(--logo-marquee-fade-width),
+    #000 calc(100% - var(--logo-marquee-fade-width)),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 var(--logo-marquee-fade-width),
+    #000 calc(100% - var(--logo-marquee-fade-width)),
+    transparent 100%
+  );
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+.logo-marquee__gutter {
+  width: var(--logo-marquee-inset-x);
+  flex-shrink: 0;
+  align-self: stretch;
+  pointer-events: none;
+}
+
+.logo-marquee__logo-item {
+  border-right: 1px solid color-mix(in srgb, var(--modus-wc-color-base-content) 12%, transparent);
+  flex: 0 0 auto;
+  padding-inline: 1.25rem;
+  padding-block: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .logo-marquee__logo-item {
+    padding-inline: 1.5rem;
+  }
+}
+
+.logo-marquee__logo-list {
+  flex-wrap: nowrap;
+}
+
+.logo-marquee__logo modus-wc-logo,
+.logo-marquee__logo .modus-wc-logo {
+  display: block;
+  flex-shrink: 0;
+  width: auto;
+}
+
+.logo-marquee__track {
+  display: flex;
+  width: max-content;
+  animation: logo-marquee-scroll 48s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-marquee__viewport {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .logo-marquee__track {
+    animation: none;
+    width: max-content;
+  }
+}
+
+@keyframes logo-marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}

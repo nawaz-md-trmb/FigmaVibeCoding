@@ -1,0 +1,44 @@
+:root {
+  --color-trimble-blue: #0063a3;
+  --color-blue-dark: #0e416c;
+  --color-trimble-gray: #252a2e;
+  --color-gray-10: #171c1e;
+  --color-gray-9: #353a40;
+  --color-gray-8: #464b52;
+  --color-trimble-grey: #363545;
+  --color-gray-4: #90939f;
+  --color-gray-1: #cbcdd6;
+  --color-gray-light: #f1f1f6;
+  --color-white: #ffffff;
+  --font-family: 'Open Sans', 'Segoe UI', sans-serif;
+  --header-height: 56px;
+  --side-nav-width: 229px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  color: var(--color-trimble-gray);
+  background: var(--color-white);
+  overflow: hidden;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  font-family: inherit;
+}

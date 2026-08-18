@@ -1,0 +1,531 @@
+/**
+ * Rainbow gradient frame + pattern-preview helpers (conic sweep, disclosure, chips, prompt).
+ * Page-hero and sticky-header chrome live in AiUxGradientFrameLayoutChrome.css.
+ * Agent suggestion tile: AiUxAgentMarkStatic.css. AI mark glyph: AiUxModusAiMarkIcon.css.
+ */
+
+@property --ai-ux-rainbow-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes ai-ux-rainbow-angle {
+  to {
+    --ai-ux-rainbow-angle: 360deg;
+  }
+}
+
+.ai-ux-gradient-frame {
+  position: relative;
+  border-radius: 0.75rem;
+  padding: 2px;
+  overflow: hidden;
+}
+
+/** Prompt / toolbars with popovers: default overflow clips absolutely positioned menus. */
+.ai-ux-gradient-frame--overflow-visible {
+  overflow: visible;
+}
+
+.ai-ux-gradient-frame__glow {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  --ai-ux-rainbow-angle: 0deg;
+  background: conic-gradient(
+    from var(--ai-ux-rainbow-angle),
+    #00e6fd,
+    #4070ff,
+    #8b20e8,
+    #ff00d7,
+    #00e6fd
+  );
+  animation: ai-ux-rainbow-angle 15s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-ux-gradient-frame__glow {
+    animation: none;
+    --ai-ux-rainbow-angle: 0deg;
+  }
+}
+
+/**
+ * Inline Action pattern: toolbar fades in and settles under the selection (kept on an
+ * inner node so the host can keep translateX(-50%) for horizontal anchoring).
+ */
+@keyframes ai-ux-inline-action-toolbar-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-0.375rem) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.ai-ux-inline-action-toolbar-animate {
+  animation: ai-ux-inline-action-toolbar-enter 0.2s cubic-bezier(0.16, 1, 0.3, 1)
+    both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-ux-inline-action-toolbar-animate {
+    animation: none;
+  }
+}
+
+.ai-ux-gradient-frame__inner {
+  position: relative;
+  z-index: 1;
+  min-height: 0;
+  border-radius: calc(0.75rem - 2px);
+  background-color: var(--modus-wc-color-base-100);
+}
+
+/**
+ * Disclosure chip: the animated gradient frame is the only stroke.
+ * Modus outline chips set `border-color: var(--modus-wc-color-primary)` on :active
+ * (see modus-wc-chip.css); neutralize chip chrome in all interactive states so the
+ * rainbow edge stays visually correct. Keyboard users still get :focus-visible ring.
+ */
+.ai-ux-gradient-frame--disclosure
+  .ai-ux-gradient-frame__inner
+  modus-wc-chip
+  .modus-wc-chip.modus-wc-btn.modus-wc-chip--outline,
+.ai-ux-gradient-frame--disclosure
+  .ai-ux-gradient-frame__inner
+  modus-wc-chip
+  .modus-wc-chip.modus-wc-btn.modus-wc-chip--outline:hover,
+.ai-ux-gradient-frame--disclosure
+  .ai-ux-gradient-frame__inner
+  modus-wc-chip
+  .modus-wc-chip.modus-wc-btn.modus-wc-chip--outline:active,
+.ai-ux-gradient-frame--disclosure
+  .ai-ux-gradient-frame__inner
+  modus-wc-chip
+  .modus-wc-chip.modus-wc-btn.modus-wc-chip--outline:focus {
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.ai-ux-gradient-frame--disclosure
+  .ai-ux-gradient-frame__inner
+  modus-wc-chip
+  .modus-wc-chip.modus-wc-btn.modus-wc-chip--outline:focus {
+  outline: none;
+}
+
+.ai-ux-gradient-frame--disclosure
+  .ai-ux-gradient-frame__inner
+  modus-wc-chip
+  .modus-wc-chip.modus-wc-btn.modus-wc-chip--outline:focus-visible {
+  outline: 2px solid var(--modus-wc-color-primary);
+  outline-offset: 2px;
+}
+
+/** Tight circular ring around an icon (e.g. AI sparkles inside a badge label). */
+.ai-ux-gradient-frame--icon-ring {
+  display: inline-flex;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  padding: 2px;
+}
+
+.ai-ux-gradient-frame--icon-ring .ai-ux-gradient-frame__glow {
+  border-radius: inherit;
+}
+
+.ai-ux-gradient-frame--icon-ring .ai-ux-gradient-frame__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  min-width: 0;
+  min-height: 0;
+}
+
+/**
+ * “Used by AI” pill: animated conic gradient is the outer ring; inner uses base page.
+ * modus-wc-badge (outlined) default stroke is hidden so the rainbow reads as the only
+ * border and the badge stays a single pill (see modus-wc-badge / customClass in docs).
+ */
+.ai-ux-gradient-frame--used-by-ai-badge {
+  display: inline-flex;
+  max-width: 100%;
+  border-radius: 9999px;
+}
+
+.ai-ux-gradient-frame--used-by-ai-badge .ai-ux-gradient-frame__glow {
+  border-radius: inherit;
+}
+
+.ai-ux-gradient-frame--used-by-ai-badge .ai-ux-gradient-frame__inner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  padding: 2px;
+  box-sizing: border-box;
+  line-height: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.ai-ux-gradient-frame--used-by-ai-badge
+  modus-wc-badge
+  .modus-wc-badge.modus-wc-badge-outlined,
+.ai-ux-gradient-frame--used-by-ai-badge
+  modus-wc-badge
+  .modus-wc-badge.modus-wc-badge-outlined:hover,
+.ai-ux-gradient-frame--used-by-ai-badge
+  modus-wc-badge
+  .modus-wc-badge.modus-wc-badge-outlined:active,
+.ai-ux-gradient-frame--used-by-ai-badge
+  modus-wc-badge
+  .modus-wc-badge.modus-wc-badge-outlined:focus {
+  border-color: transparent !important;
+  box-shadow: none !important;
+  min-height: 0 !important;
+  height: auto !important;
+  padding-block: var(--modus-wc-spacing-3xs, 0.125rem) !important;
+  line-height: 1.2 !important;
+}
+
+.ai-ux-gradient-frame--used-by-ai-badge
+  modus-wc-badge
+  .modus-wc-badge.modus-wc-badge-outlined:focus {
+  outline: none;
+}
+
+.ai-ux-gradient-frame--used-by-ai-badge
+  modus-wc-badge
+  .modus-wc-badge.modus-wc-badge-outlined:focus-visible {
+  outline: 2px solid var(--modus-wc-color-primary);
+  outline-offset: 2px;
+}
+
+/**
+ * Prompt composite shell: fixed 2px padding so the shell size does not jog. Idle paints a
+ * neutral ring via the glow layer; focused swaps to the animated conic (prompt field only,
+ * see AiUxPromptComposerSurface).
+ */
+.ai-ux-gradient-frame--prompt-composer {
+  box-sizing: border-box;
+  padding: 2px;
+  border: none;
+  background-color: transparent;
+}
+
+.ai-ux-gradient-frame--prompt-composer .ai-ux-gradient-frame__glow {
+  opacity: 1;
+  animation: none;
+  --ai-ux-rainbow-angle: 0deg;
+  background: var(--modus-wc-color-base-200);
+}
+
+.ai-ux-gradient-frame--prompt-composer--field-focused .ai-ux-gradient-frame__glow {
+  animation: ai-ux-rainbow-angle 15s linear infinite;
+  background: conic-gradient(
+    from var(--ai-ux-rainbow-angle),
+    #00e6fd,
+    #4070ff,
+    #8b20e8,
+    #ff00d7,
+    #00e6fd
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-ux-gradient-frame--prompt-composer--field-focused .ai-ux-gradient-frame__glow {
+    animation: none;
+    --ai-ux-rainbow-angle: 0deg;
+  }
+}
+
+/** Prompt / Prompt Initial CTA preview: hide text-input focus ring + focus border inside the gradient shell (demo only). */
+.ai-ux-prompt-surface modus-wc-text-input:focus-within {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
+}
+
+.ai-ux-prompt-surface modus-wc-text-input .modus-wc-text-input:focus-within {
+  box-shadow: none !important;
+}
+
+.ai-ux-prompt-surface modus-wc-text-input:focus-within .modus-wc-text-input {
+  border-color: transparent !important;
+}
+
+.ai-ux-prompt-surface modus-wc-text-input .modus-wc-text-input,
+.ai-ux-prompt-surface modus-wc-text-input .modus-wc-text-input:focus,
+.ai-ux-prompt-surface modus-wc-text-input .modus-wc-text-input:focus-visible,
+.ai-ux-prompt-surface modus-wc-text-input input:focus,
+.ai-ux-prompt-surface modus-wc-text-input input:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
+}
+
+/** Prompt composer field: blueprint small body scale (pairs with text-input `size="sm"`). */
+.ai-ux-prompt-surface modus-wc-text-input input {
+  font-size: var(--text-sm);
+}
+
+/**
+ * Static fill for agent marks (Suggestion preview) — same diagonal ramp as
+ * `.modus-ai-mark-gradient-icon` / Trimble AI Blue → Pink mid-stops (see AiUxModusAiMarkIcon.css).
+ */
+.ai-ux-agent-mark-static {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  background-image: linear-gradient(
+    to bottom right,
+    #00e6fd 0%,
+    #0078f0 28%,
+    #6b2cff 55%,
+    #d010d8 82%,
+    #ff00d7 100%
+  );
+}
+
+/**
+ * Modus AI / AI Patterns hero + Modus AI tool detail headers: gradient-filled Modus icon
+ * (light DOM `i` + background-clip). Diagonal top-left → bottom-right (Trimble AI mark palette).
+ */
+.page-header-ai-stars-gradient-icon,
+.modus-ai-mark-gradient-icon {
+  display: inline-block;
+  /* Trimble AI: AI Blue → AI Pink (official endpoints) with mid-stops for smooth icon fill */
+  background-image: linear-gradient(
+    to bottom right,
+    #00e6fd 0%,
+    #0078f0 28%,
+    #6b2cff 55%,
+    #d010d8 82%,
+    #ff00d7 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Plain <i>: Modus xl font-size is scoped under modus-wc-icon; mirror size="xl" (4rem). */
+.page-header-ai-stars-gradient-icon.modus-icons.modus-wc-icon--xl {
+  font-size: 4rem;
+}
+
+/**
+ * Page hero + sticky header chrome (not required for most pattern previews).
+ * Depends on @property / @keyframes --ai-ux-rainbow-angle from AiUxGradientFramePatterns.css.
+ */
+
+/** Page hero only: slow hue drift + soft origin nudge (avoids linear 360° “wheel” spin). */
+@keyframes page-header-ai-rainbow-angle-gentle {
+  0%,
+  100% {
+    --ai-ux-rainbow-angle: -32deg;
+  }
+  28% {
+    --ai-ux-rainbow-angle: 48deg;
+  }
+  52% {
+    --ai-ux-rainbow-angle: 6deg;
+  }
+  78% {
+    --ai-ux-rainbow-angle: 36deg;
+  }
+}
+
+@keyframes page-header-ai-rainbow-origin-drift {
+  0%,
+  100% {
+    background-position: 0 0, 0 0, 49% calc(59% - 52%);
+  }
+  50% {
+    background-position: 0 0, 0 0, 51% calc(61% - 52%);
+  }
+}
+
+/**
+ * Modus AI hub sticky header (PageHeader): icon chip uses the same animated conic ring
+ * as AI UX gradient frames / Modus Assistant FAB — inner surface is base-page; glyph uses
+ * `.modus-ai-mark-gradient-icon` (linear AI mark fill).
+ */
+.modus-ai-sticky-header-icon-frame {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  border-radius: var(--modus-wc-border-radius-lg, 12px);
+  isolation: isolate;
+}
+
+.modus-ai-sticky-header-icon-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  --ai-ux-rainbow-angle: 0deg;
+  background: conic-gradient(
+    from var(--ai-ux-rainbow-angle),
+    #00e6fd,
+    #4070ff,
+    #8b20e8,
+    #ff00d7,
+    #00e6fd
+  );
+  animation: ai-ux-rainbow-angle 15s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modus-ai-sticky-header-icon-frame::before {
+    animation: none;
+    --ai-ux-rainbow-angle: 0deg;
+  }
+}
+
+.modus-ai-sticky-header-icon-frame__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: calc(var(--modus-wc-border-radius-lg, 12px) - 2px);
+  background-color: var(--modus-wc-color-base-page);
+  padding: 6px 8px;
+}
+
+.modus-ai-sticky-header-icon-frame .modus-wc-icon.modus-ai-mark-gradient-icon {
+  font-size: 1.375rem;
+  line-height: 1;
+}
+
+/**
+ * AI rainbow hero: reserve vertical space for ~3 lines of description at `lg` so wide
+ * layouts (2 lines) match narrow (3 lines) and the 240px gradient is not clipped by
+ * `overflow-y: hidden` on the wrapper.
+ */
+@media (min-width: 640px) {
+  .page-header-gradient-wrapper--rainbow-chrome {
+    min-height: 18rem;
+  }
+}
+
+/**
+ * AI Patterns page hero: conic wash (same five stops as frame / FAB) with origin shifted
+ * above the card (oversized layer + position), then a top→bottom fade to page so the
+ * tint reaches 0% at the bottom like other PageHeaderWithGradient heroes.
+ */
+.page-header-gradient-ai-rainbow {
+  --ai-ux-rainbow-angle: 0deg;
+  animation:
+    page-header-ai-rainbow-angle-gentle 28s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite,
+    page-header-ai-rainbow-origin-drift 22s ease-in-out infinite alternate;
+  position: relative;
+  /* Transparent top so rounded corners read like other gradient headers (no base-page slab). */
+  background-color: transparent;
+  background-image:
+    /* Top veil → --background (matches #main-content + sticky filter bar). */
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      transparent 40%,
+      color-mix(in srgb, var(--modus-wc-color-base-page) 18%, transparent) 68%,
+      color-mix(in srgb, var(--modus-wc-color-base-page) 72%, transparent) 88%,
+      var(--modus-wc-color-base-page) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      transparent 40%,
+      color-mix(in srgb, var(--modus-wc-color-base-page) 55%, transparent) 78%,
+      var(--modus-wc-color-base-page) 100%
+    ),
+    conic-gradient(
+      from var(--ai-ux-rainbow-angle),
+      rgb(0 230 253 / 0.2),
+      rgb(64 112 255 / 0.2),
+      rgb(139 32 232 / 0.2),
+      rgb(255 0 215 / 0.2),
+      rgb(0 230 253 / 0.2)
+    );
+  background-size: auto, auto, 280% 280%;
+  background-position: 0 0, 0 0, 50% calc(60% - 52%);
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-blend-mode: normal, normal, multiply;
+}
+
+[data-theme="modus-modern-dark"] .page-header-gradient-ai-rainbow {
+  background-image:
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      transparent 36%,
+      color-mix(in srgb, var(--modus-wc-color-base-page) 16%, transparent) 64%,
+      color-mix(in srgb, var(--modus-wc-color-base-page) 70%, transparent) 86%,
+      var(--modus-wc-color-base-page) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      transparent 36%,
+      color-mix(in srgb, var(--modus-wc-color-base-page) 50%, transparent) 74%,
+      var(--modus-wc-color-base-page) 100%
+    ),
+    conic-gradient(
+      from var(--ai-ux-rainbow-angle),
+      rgb(0 230 253 / 0.32),
+      rgb(64 112 255 / 0.32),
+      rgb(139 32 232 / 0.32),
+      rgb(255 0 215 / 0.32),
+      rgb(0 230 253 / 0.32)
+    );
+  background-size: auto, auto, 280% 280%;
+  background-position: 0 0, 0 0, 50% calc(60% - 52%);
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-blend-mode: normal, normal, screen;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-header-gradient-ai-rainbow {
+    animation: none;
+    --ai-ux-rainbow-angle: 0deg;
+  }
+}
+
+/* Light foot scrim over wave (--background). */
+.page-header-gradient-ai-rainbow::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 12px;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    var(--modus-wc-color-base-page) 0%,
+    color-mix(in srgb, var(--modus-wc-color-base-page) 45%, transparent) 55%,
+    transparent 100%
+  );
+}

@@ -1,0 +1,195 @@
+@import "./AiUxGradientFrame.css";
+
+/*
+ * Floating agentic chat window — host, draggable panel, and AI FAB.
+ * In blueprint previews the host is position: relative; in apps use --viewport-fixed on the host.
+ */
+.agentic-chat-window-floating-host {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: min(720px, 85vh);
+  min-height: min(720px, 85dvh);
+  overflow: hidden;
+  background: var(--modus-wc-color-base-100);
+}
+
+.agentic-chat-window-floating-host--viewport-fixed {
+  position: fixed;
+  inset: 0;
+  z-index: 125;
+  min-height: 0;
+  pointer-events: none;
+  background: transparent;
+}
+
+.agentic-chat-window-floating-host--viewport-fixed > * {
+  pointer-events: auto;
+}
+
+.agentic-chat-window-floating-panel[hidden] {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+.agentic-chat-window-floating-panel {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: min(56rem, calc(100% - 2rem));
+  height: min(720px, calc(100% - 6rem));
+  max-width: calc(100% - 2rem);
+  max-height: calc(100% - 6rem);
+  border-radius: 0.75rem;
+  border: 1px solid var(--modus-wc-color-base-200);
+  background: var(--modus-wc-color-base-page);
+  box-shadow: var(--app-elevation-floating);
+  overflow: hidden;
+}
+
+.agentic-chat-window-floating-host--viewport-fixed .agentic-chat-window-floating-panel {
+  position: fixed;
+}
+
+.agentic-chat-window-floating-panel--maximized {
+  inset: 0 !important;
+  left: 0 !important;
+  top: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: none !important;
+  max-height: none !important;
+  border-radius: 0;
+}
+
+.agentic-chat-window-floating-panel--dragging {
+  user-select: none;
+}
+
+.agentic-chat-window-drag-handle {
+  cursor: grab;
+  touch-action: none;
+}
+
+.agentic-chat-window-drag-handle:active {
+  cursor: grabbing;
+}
+
+.agentic-chat-window-floating-shell {
+  display: flex;
+  min-height: 0;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+}
+
+.agentic-chat-window-floating-panel [role="application"][aria-label="Agentic chat workspace"] {
+  display: flex;
+  flex: 1 1 0%;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+  height: 100%;
+}
+
+/* AI FAB — aligned with Modus Assistant (below utility panel, above page chrome) */
+.agentic-chat-window-fab {
+  position: absolute;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  isolation: isolate;
+}
+
+.agentic-chat-window-floating-host--viewport-fixed .agentic-chat-window-fab {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+}
+
+.agentic-chat-window-fab::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  pointer-events: none;
+  --ai-ux-rainbow-angle: 0deg;
+  background: conic-gradient(
+    from var(--ai-ux-rainbow-angle),
+    #00e6fd,
+    #4070ff,
+    #8b20e8,
+    #ff00d7,
+    #00e6fd
+  );
+  animation: ai-ux-rainbow-angle 15s linear infinite;
+  mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 2px),
+    #000 calc(100% - 2px),
+    #000 100%
+  );
+  -webkit-mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 2px),
+    #000 calc(100% - 2px),
+    #000 100%
+  );
+}
+
+.agentic-chat-window-fab modus-wc-button {
+  position: relative;
+  z-index: 1;
+}
+
+.agentic-chat-window-fab modus-wc-button button.agentic-chat-window-fab-rainbow {
+  overflow: visible;
+  background-color: var(--modus-wc-color-base-page) !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  color: var(--modus-wc-color-base-content);
+}
+
+.agentic-chat-window-fab modus-wc-button button.agentic-chat-window-fab-rainbow:hover,
+.agentic-chat-window-fab modus-wc-button button.agentic-chat-window-fab-rainbow:active {
+  background-color: var(--modus-wc-color-base-100) !important;
+  border-color: transparent !important;
+}
+
+.agentic-chat-window-fab modus-wc-button button.agentic-chat-window-fab-rainbow:focus {
+  outline: none;
+}
+
+.agentic-chat-window-fab modus-wc-button button.agentic-chat-window-fab-rainbow:focus-visible {
+  outline: 2px solid var(--modus-wc-color-primary);
+  outline-offset: 2px;
+}
+
+/* Same centered glyph treatment as Modus Assistant FAB (src/components/modus-assistant/ModusAssistant.css). */
+.agentic-chat-window-fab modus-wc-button button.agentic-chat-window-fab-rainbow modus-wc-icon,
+.agentic-chat-window-fab modus-wc-button button.agentic-chat-window-fab-rainbow i.modus-wc-icon {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding: 0 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .agentic-chat-window-fab::before {
+    animation: none;
+    --ai-ux-rainbow-angle: 0deg;
+  }
+}

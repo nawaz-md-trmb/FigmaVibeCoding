@@ -1,0 +1,32 @@
+/**
+ * Container query host: keep `container-type` off the flex row so shrink-to-fit parents
+ * (e.g. AI pattern list cards with `width: auto` on the spec shell) don’t collapse the row.
+ */
+.ai-ux-sources-pattern-cq {
+  container-type: inline-size;
+  container-name: ai-ux-sources-row;
+  min-width: 0;
+  width: 100%;
+}
+
+.ai-ux-sources-pattern-row {
+  min-width: 0;
+  width: 100%;
+}
+
+/* Hide “Used by AI” in narrow in-flow width (e.g. dropdown, narrow preview) — not viewport-based */
+@container ai-ux-sources-row (max-width: 599px) {
+  .ai-ux-sources-pattern-row__used-by-ai {
+    display: none;
+  }
+}
+
+/* Ellipsis: label may render in shadow — constrain and clip the host */
+.ai-ux-sources-pattern-row__text modus-wc-typography {
+  min-width: 0;
+  max-width: 100%;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

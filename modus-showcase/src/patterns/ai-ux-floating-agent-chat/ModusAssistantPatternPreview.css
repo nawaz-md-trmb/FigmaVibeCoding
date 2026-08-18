@@ -1,0 +1,126 @@
+/**
+ * Contained Modus Assistant preview for pattern docs: same shell + FAB as the app,
+ * but overlay/FAB are absolute within the preview box (not viewport-fixed).
+ * Neutralizes global phone rules so the panel stays docked inside the demo.
+ */
+.modus-assistant-pattern-preview {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  min-height: 31rem;
+  border-radius: var(--modus-wc-border-radius-lg, 12px);
+  overflow: hidden;
+  border: 1px solid var(--modus-wc-color-base-200);
+  background: var(--modus-wc-color-base-200);
+}
+
+.modus-assistant-pattern-preview .modus-assistant-overlay {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 4;
+  /* No fade/slide on load or toggle — panel should read as always present in the card. */
+  transition: none !important;
+}
+
+/* Beat stray cascade so nested previews never stay at visibility:hidden / opacity:0 */
+.modus-assistant-pattern-preview .modus-assistant-overlay--open {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.modus-assistant-pattern-preview .modus-assistant-fab {
+  position: absolute !important;
+  bottom: 16px !important;
+  right: 16px !important;
+  left: auto !important;
+  top: auto !important;
+  z-index: 5;
+  overflow: visible;
+}
+
+.modus-assistant-pattern-preview .modus-assistant-panel {
+  max-height: calc(100% - 96px) !important;
+  animation: none !important;
+}
+
+/**
+ * AI Patterns list-card rail: short intrinsic height, corner-docked panel + FAB,
+ * no iframe (placeholder only). Avoids scale-to-fit clipping of the full 31rem demo.
+ */
+.modus-assistant-pattern-preview--compact {
+  box-sizing: border-box;
+  height: 10.25rem;
+  min-height: 10.25rem;
+  max-height: 10.25rem;
+  /* Explicit width so inner % widths and flex parents never resolve to 0 */
+  width: 17.5rem;
+  max-width: 100%;
+}
+
+.modus-assistant-pattern-preview--compact .modus-assistant-header {
+  padding: 6px 6px 6px 10px;
+}
+
+.modus-assistant-pattern-preview--compact .modus-assistant-panel {
+  /*
+   * Global ModusAssistant.css uses @media (max-width: 576px) to set this panel to
+   * position: fixed; inset: 0 (full viewport). That rips the panel out of this
+   * overflow:hidden shell — AI pattern list cards then look like empty grey tiles.
+   * Keep the panel a normal flex child of the overlay at every viewport width.
+   */
+  position: static !important;
+  inset: auto !important;
+  width: min(15rem, calc(100% - 8px)) !important;
+  height: 7.25rem !important;
+  min-height: 0 !important;
+  max-height: calc(100% - 3rem) !important;
+  margin: 0 6px 2.75rem 0 !important;
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.14),
+    0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.modus-assistant-pattern-preview--compact .modus-assistant-fab {
+  bottom: 6px !important;
+  right: 6px !important;
+}
+
+/* Same breakpoint hides the FAB when the overlay is open; keep it visible in thumbnails */
+.modus-assistant-pattern-preview--compact .modus-assistant-overlay--open ~ .modus-assistant-fab {
+  visibility: visible !important;
+}
+
+.modus-assistant-pattern-preview--compact .modus-assistant-iframe-container {
+  min-height: 0;
+}
+
+.modus-assistant-pattern-preview--compact .modus-assistant-pattern-preview-chat-placeholder {
+  min-height: 0;
+}
+
+@media (max-width: 576px) {
+  .modus-assistant-pattern-preview:not(.modus-assistant-pattern-preview--compact)
+    .modus-assistant-overlay--open
+    .modus-assistant-panel {
+    position: absolute !important;
+    inset: auto !important;
+    right: 16px !important;
+    bottom: 88px !important;
+    left: auto !important;
+    top: auto !important;
+    width: min(420px, calc(100% - 32px)) !important;
+    max-width: calc(100% - 32px) !important;
+    height: min(680px, calc(100% - 104px)) !important;
+    min-height: 0 !important;
+    max-height: calc(100% - 104px) !important;
+    margin: 0 !important;
+    border-radius: var(--modus-wc-border-radius-lg, 12px) !important;
+  }
+
+  .modus-assistant-pattern-preview:not(.modus-assistant-pattern-preview--compact)
+    .modus-assistant-overlay--open
+    ~ .modus-assistant-fab {
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+}

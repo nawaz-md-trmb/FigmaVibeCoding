@@ -1,0 +1,200 @@
+/**
+ * Page hero + sticky header chrome (not required for most pattern previews).
+ * Depends on @property / @keyframes --ai-ux-rainbow-angle from AiUxGradientFramePatterns.css.
+ */
+
+/** Page hero only: slow hue drift + soft origin nudge (avoids linear 360° “wheel” spin). */
+@keyframes page-header-ai-rainbow-angle-gentle {
+  0%,
+  100% {
+    --ai-ux-rainbow-angle: -32deg;
+  }
+  28% {
+    --ai-ux-rainbow-angle: 48deg;
+  }
+  52% {
+    --ai-ux-rainbow-angle: 6deg;
+  }
+  78% {
+    --ai-ux-rainbow-angle: 36deg;
+  }
+}
+
+@keyframes page-header-ai-rainbow-origin-drift {
+  0%,
+  100% {
+    background-position: 0 0, 0 0, 49% calc(59% - 52%);
+  }
+  50% {
+    background-position: 0 0, 0 0, 51% calc(61% - 52%);
+  }
+}
+
+/**
+ * Modus AI hub sticky header (PageHeader): icon chip uses the same animated conic ring
+ * as AI UX gradient frames / Modus Assistant FAB — inner surface is base-page; glyph uses
+ * `.modus-ai-mark-gradient-icon` (linear AI mark fill).
+ */
+.modus-ai-sticky-header-icon-frame {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  border-radius: var(--modus-wc-border-radius-lg, 12px);
+  isolation: isolate;
+}
+
+.modus-ai-sticky-header-icon-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  --ai-ux-rainbow-angle: 0deg;
+  background: conic-gradient(
+    from var(--ai-ux-rainbow-angle),
+    #00e6fd,
+    #4070ff,
+    #8b20e8,
+    #ff00d7,
+    #00e6fd
+  );
+  animation: ai-ux-rainbow-angle 15s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modus-ai-sticky-header-icon-frame::before {
+    animation: none;
+    --ai-ux-rainbow-angle: 0deg;
+  }
+}
+
+.modus-ai-sticky-header-icon-frame__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: calc(var(--modus-wc-border-radius-lg, 12px) - 2px);
+  background-color: var(--modus-wc-color-base-page);
+  padding: 6px 8px;
+}
+
+.modus-ai-sticky-header-icon-frame .modus-wc-icon.modus-ai-mark-gradient-icon {
+  font-size: 1.375rem;
+  line-height: 1;
+}
+
+/**
+ * AI rainbow hero: reserve vertical space for ~3 lines of description at `lg` so wide
+ * layouts (2 lines) match narrow (3 lines) and the 240px gradient is not clipped by
+ * `overflow-y: hidden` on the wrapper.
+ */
+@media (min-width: 640px) {
+  .page-header-gradient-wrapper--rainbow-chrome {
+    min-height: 18rem;
+  }
+}
+
+/**
+ * AI Patterns page hero: conic wash (same five stops as frame / FAB) with origin shifted
+ * above the card (oversized layer + position), then a top→bottom fade to page so the
+ * tint reaches 0% at the bottom like other PageHeaderWithGradient heroes.
+ */
+.page-header-gradient-ai-rainbow {
+  --ai-ux-rainbow-angle: 0deg;
+  animation:
+    page-header-ai-rainbow-angle-gentle 28s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite,
+    page-header-ai-rainbow-origin-drift 22s ease-in-out infinite alternate;
+  position: relative;
+  /* Transparent top so rounded corners read like other gradient headers (no base-page slab). */
+  background-color: transparent;
+  background-image:
+    /* Top veil → --background (matches #main-content + sticky filter bar). */
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      transparent 40%,
+      color-mix(in srgb, var(--modus-wc-color-base-page) 18%, transparent) 68%,
+      color-mix(in srgb, var(--modus-wc-color-base-page) 72%, transparent) 88%,
+      var(--modus-wc-color-base-page) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      transparent 40%,
+      color-mix(in srgb, var(--modus-wc-color-base-page) 55%, transparent) 78%,
+      var(--modus-wc-color-base-page) 100%
+    ),
+    conic-gradient(
+      from var(--ai-ux-rainbow-angle),
+      rgb(0 230 253 / 0.2),
+      rgb(64 112 255 / 0.2),
+      rgb(139 32 232 / 0.2),
+      rgb(255 0 215 / 0.2),
+      rgb(0 230 253 / 0.2)
+    );
+  background-size: auto, auto, 280% 280%;
+  background-position: 0 0, 0 0, 50% calc(60% - 52%);
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-blend-mode: normal, normal, multiply;
+}
+
+[data-theme="modus-modern-dark"] .page-header-gradient-ai-rainbow {
+  background-image:
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      transparent 36%,
+      color-mix(in srgb, var(--modus-wc-color-base-page) 16%, transparent) 64%,
+      color-mix(in srgb, var(--modus-wc-color-base-page) 70%, transparent) 86%,
+      var(--modus-wc-color-base-page) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      transparent 36%,
+      color-mix(in srgb, var(--modus-wc-color-base-page) 50%, transparent) 74%,
+      var(--modus-wc-color-base-page) 100%
+    ),
+    conic-gradient(
+      from var(--ai-ux-rainbow-angle),
+      rgb(0 230 253 / 0.32),
+      rgb(64 112 255 / 0.32),
+      rgb(139 32 232 / 0.32),
+      rgb(255 0 215 / 0.32),
+      rgb(0 230 253 / 0.32)
+    );
+  background-size: auto, auto, 280% 280%;
+  background-position: 0 0, 0 0, 50% calc(60% - 52%);
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-blend-mode: normal, normal, screen;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-header-gradient-ai-rainbow {
+    animation: none;
+    --ai-ux-rainbow-angle: 0deg;
+  }
+}
+
+/* Light foot scrim over wave (--background). */
+.page-header-gradient-ai-rainbow::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 12px;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    var(--modus-wc-color-base-page) 0%,
+    color-mix(in srgb, var(--modus-wc-color-base-page) 45%, transparent) 55%,
+    transparent 100%
+  );
+}

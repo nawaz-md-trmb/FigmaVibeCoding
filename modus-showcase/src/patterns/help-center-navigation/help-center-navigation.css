@@ -1,0 +1,976 @@
+/* Help Center Nav: container for responsive layout (mobile preview + viewport resize) */
+.help-center-nav-container,
+[data-help-center-nav].help-center-nav-container {
+  container-type: inline-size;
+  container-name: help-center-nav;
+}
+/* Help Center Nav: ensure 1px base-200 border on bottom (header) */
+.help-center-nav {
+  position: relative;
+  border-bottom-width: 1px !important;
+  border-bottom-style: solid !important;
+  border-bottom-color: var(--modus-wc-color-base-200) !important;
+}
+/* Help Center Nav: brand logo dimensions, ml-2 on mobile, 80px on desktop */
+.help-center-nav-brand-logo {
+  height: 32px !important;
+  width: auto !important;
+  margin-left: 0.5rem !important; /* ml-2 on mobile */
+}
+@container help-center-nav (min-width: 641px) {
+  .help-center-nav-brand-logo {
+    margin-left: 80px !important;
+  }
+  .help-center-nav-header-row {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  .help-center-nav {
+    padding-top: 1.5rem !important; /* pt-6 */
+    padding-bottom: 0.5rem !important; /* pb-2 */
+    border-bottom-width: 1px !important;
+    border-bottom-style: solid !important;
+    border-bottom-color: var(--modus-wc-color-base-200) !important;
+  }
+}
+.help-center-nav-brand-logo svg path {
+  fill: #ffffff !important;
+}
+
+/* Help Center Nav: ensure right-side icon is white on primary button */
+/* Primary button icons - exclude logo button which needs white */
+.help-center-nav modus-wc-button[color="primary"]:not(:has(button.help-center-nav-logo-btn)) modus-wc-icon path {
+  fill: currentColor;
+}
+
+/* Help Center Nav: language dropdown - transparent background, custom underline only */
+/* Override neutral hover/pressed colors via CSS vars (inherits into shadow DOM) */
+.help-center-nav .help-center-nav-lang-dropdown modus-wc-button {
+  --modus-wc-color-neutral-pale: transparent;
+  --modus-wc-color-neutral: transparent;
+  border: none !important;
+  border-bottom: 2px solid transparent !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  transition: border-color 0.15s ease;
+}
+/* Underline on hover and when menu is open - X is a separate button, so no underline on it */
+.help-center-nav .help-center-nav-lang-dropdown modus-wc-button:hover,
+.help-center-nav .help-center-nav-lang-dropdown modus-wc-button[aria-expanded="true"] {
+  border-bottom-color: var(--modus-wc-color-secondary) !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+/* Close (X) button - no underline, transparent background (customClass on inner button) */
+.help-center-nav button.help-center-nav-lang-close,
+.help-center-nav button.help-center-nav-lang-close:hover {
+  border-bottom: 2px solid transparent !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+/* Help Center Nav: language dropdown menu */
+.help-center-nav .help-center-nav-lang-dropdown modus-wc-menu,
+.help-center-nav .help-center-nav-lang-dropdown .help-center-nav-lang-menu {
+  min-width: 320px;
+  padding: 0;
+  list-style: none;
+}
+.help-center-nav .help-center-nav-lang-menu-header {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--modus-wc-color-base-content-low-contrast);
+  padding: var(--modus-wc-spacing-sm) var(--modus-wc-spacing-md);
+  border-bottom: 1px solid var(--modus-wc-color-base-200);
+}
+.help-center-nav .help-center-nav-lang-menu-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  padding: var(--modus-wc-spacing-xs);
+}
+.help-center-nav .help-center-nav-lang-option {
+  display: flex;
+  align-items: center;
+  gap: var(--modus-wc-spacing-sm);
+  padding: var(--modus-wc-spacing-sm) var(--modus-wc-spacing-md);
+  cursor: pointer;
+  color: var(--modus-wc-color-base-content);
+  font-size: 0.875rem;
+  border-radius: var(--modus-wc-border-radius-sm, 4px);
+}
+.help-center-nav .help-center-nav-lang-option:hover {
+  background-color: var(--modus-wc-color-primary-pale);
+}
+.help-center-nav .help-center-nav-lang-option modus-wc-icon {
+  flex-shrink: 0;
+}
+.help-center-nav .help-center-nav-lang-check {
+  display: inline-flex;
+  width: 1.25rem;
+  flex-shrink: 0;
+}
+
+/* Help Center Nav: split button group wrapper - single clickable area for drawer */
+.help-center-nav .help-center-nav-split-buttons-wrapper {
+  display: inline-flex;
+  align-items: stretch;
+  align-self: stretch;
+  cursor: pointer;
+}
+.help-center-nav .help-center-nav-split-buttons-wrapper:hover {
+  opacity: 0.92;
+}
+.help-center-nav .help-center-nav-split-buttons-wrapper button {
+  pointer-events: none;
+}
+.help-center-nav .help-center-nav-split-buttons-wrapper:focus-visible {
+  outline: 2px solid var(--modus-wc-color-primary);
+  outline-offset: 2px;
+}
+/* Help Center Nav: split button group - match design exactly */
+/* customClass on wrapper div; customClass on each ModusWcButton (applied to inner button) */
+.help-center-nav .help-center-nav-split-buttons {
+  display: inline-flex;
+  align-items: stretch;
+  gap: 0;
+  align-self: stretch;
+}
+.help-center-nav .help-center-nav-split-buttons modus-wc-button-group {
+  display: inline-flex;
+  align-items: stretch;
+  gap: 0;
+}
+.help-center-nav .help-center-nav-split-buttons modus-wc-button-group modus-wc-button {
+  align-self: stretch;
+}
+/* Logo button host: center slotted content */
+.help-center-nav .help-center-nav-split-buttons modus-wc-button-group modus-wc-button:last-child {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+/* Target buttons via customClass (applied to button.modus-wc-btn by ModusWcButton) */
+.help-center-nav .help-center-nav-split-buttons button.help-center-nav-chevron-btn,
+.help-center-nav .help-center-nav-split-buttons button.help-center-nav-logo-btn {
+  border-radius: 0 !important;
+  border: none !important;
+  height: 100%;
+  padding: 6px 12px !important;
+}
+/* Left button: primary pale background, square corners, primary chevron (Modus icons use font, not SVG) */
+.help-center-nav .help-center-nav-split-buttons button.help-center-nav-chevron-btn {
+  background-color: var(--modus-wc-color-primary-pale) !important;
+  color: var(--modus-wc-color-primary) !important;
+  border-radius: 0 !important;
+  padding: 6px 0 !important;
+  padding-inline: 0 !important;
+  gap: 0 !important;
+  width: auto !important;
+  min-width: 0 !important;
+}
+/* Remove spacing on modus-wc-button host (first child of group) */
+.help-center-nav .help-center-nav-split-buttons modus-wc-button-group modus-wc-button:first-child {
+  padding: 0 !important;
+  margin: 0 !important;
+  min-width: 0 !important;
+}
+/* Remove icon spacing so left button stays narrow */
+.help-center-nav .help-center-nav-split-buttons button.help-center-nav-chevron-btn modus-wc-icon,
+.help-center-nav .help-center-nav-split-buttons button.help-center-nav-chevron-btn modus-wc-icon i,
+.help-center-nav .help-center-nav-split-buttons button.help-center-nav-chevron-btn i.modus-wc-icon {
+  padding: 0 !important;
+  padding-inline: 0 !important;
+  margin: 0 !important;
+}
+/* Right button: primary blue, sharp corners, white logo, centered content */
+.help-center-nav .help-center-nav-split-buttons button.help-center-nav-logo-btn {
+  background-color: var(--modus-wc-color-primary) !important;
+  color: #ffffff !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+/* Trimble logo icon: no top/bottom padding, horizontal only */
+.help-center-nav .help-center-nav-split-buttons button.help-center-nav-logo-btn modus-wc-icon.help-center-nav-trimble-logo,
+.help-center-nav .help-center-nav-split-buttons .help-center-nav-trimble-logo {
+  padding: 0 1rem !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+}
+.help-center-nav .help-center-nav-split-buttons button.help-center-nav-logo-btn modus-wc-icon,
+.help-center-nav .help-center-nav-split-buttons button.help-center-nav-logo-btn modus-wc-icon path,
+.help-center-nav .help-center-nav-split-buttons button.help-center-nav-logo-btn modus-wc-icon i,
+.help-center-nav .help-center-nav-split-buttons modus-wc-icon.help-center-nav-trimble-logo,
+.help-center-nav .help-center-nav-split-buttons .help-center-nav-trimble-logo,
+.help-center-nav .help-center-nav-split-buttons .help-center-nav-trimble-logo path,
+.help-center-nav .help-center-nav-split-buttons .help-center-nav-trimble-logo i {
+  color: #ffffff !important;
+  fill: #ffffff !important;
+}
+/* SVG logo in button: ensure visible, 24x24, white fill, centered (content is in light DOM, slotted into button) */
+.help-center-nav .help-center-nav-trimble-logo {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+}
+.help-center-nav .help-center-nav-trimble-logo svg {
+  display: block !important;
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+}
+.help-center-nav .help-center-nav-trimble-logo path {
+  fill: #ffffff !important;
+}
+
+/* Help Center Nav: drawer (opens from right button) */
+.help-center-nav-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+  animation: help-center-nav-drawer-fade 0.2s ease;
+}
+.help-center-nav-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(400px, 90vw);
+  max-width: 100%;
+  height: 100%;
+  background-color: var(--modus-wc-color-primary);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  padding: var(--modus-wc-spacing-lg, 1.5rem);
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
+  animation: help-center-nav-drawer-slide 0.3s ease;
+}
+@keyframes help-center-nav-drawer-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes help-center-nav-drawer-slide {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+.help-center-nav-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--modus-wc-spacing-lg, 1.5rem);
+  margin-bottom: var(--modus-wc-spacing-lg, 1.5rem);
+}
+.help-center-nav-drawer-logo {
+  height: 32px;
+  width: auto;
+}
+.help-center-nav-drawer-logo svg path {
+  fill: #ffffff !important;
+}
+.help-center-nav-drawer button.help-center-nav-drawer-close,
+.help-center-nav-drawer .help-center-nav-drawer-close,
+.help-center-nav-drawer-close modus-wc-button,
+.help-center-nav-drawer-close modus-wc-button:hover {
+  color: #ffffff !important;
+  background: transparent !important;
+  border: none !important;
+}
+.help-center-nav-drawer .help-center-nav-drawer-close modus-wc-icon path,
+.help-center-nav-drawer-close modus-wc-icon path {
+  fill: #ffffff !important;
+}
+.help-center-nav-drawer-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--modus-wc-spacing-md, 1rem);
+  flex: 1;
+}
+.help-center-nav-drawer button.help-center-nav-drawer-btn,
+.help-center-nav-drawer .help-center-nav-drawer-btn {
+  width: 100%;
+  padding: var(--modus-wc-spacing-sm, 0.5rem) var(--modus-wc-spacing-lg, 1.5rem) !important;
+  border-radius: 9999px !important;
+  border: 2px solid #ffffff !important;
+  background: transparent !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+}
+.help-center-nav-drawer button.help-center-nav-drawer-btn:hover,
+.help-center-nav-drawer .help-center-nav-drawer-btn:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: #ffffff !important;
+  color: #ffffff !important;
+}
+.help-center-nav-drawer-section {
+  margin-top: var(--modus-wc-spacing-xl, 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--modus-wc-spacing-sm, 0.5rem);
+}
+.help-center-nav-drawer-heading {
+  color: #ffffff !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  margin-bottom: var(--modus-wc-spacing-xs, 0.25rem) !important;
+}
+.help-center-nav-drawer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.help-center-nav-drawer-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--modus-wc-spacing-sm, 0.5rem);
+  padding: var(--modus-wc-spacing-sm, 0.5rem) 0;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  font-size: 0.875rem;
+  transition: opacity 0.15s ease;
+}
+.help-center-nav-drawer-link:hover {
+  opacity: 0.9;
+}
+.help-center-nav-drawer-link modus-wc-icon path {
+  fill: #ffffff !important;
+}
+
+/* Help Center Nav: search overlay - starts below header row, full viewport */
+.help-center-nav-content-wrapper {
+  position: relative;
+  min-height: 0;
+}
+.help-center-nav.help-center-nav-search-open .help-center-nav-content-wrapper {
+  min-height: 400px;
+}
+/* Overlay starts below the top row; --help-center-nav-header-height set via JS */
+.help-center-nav-search-overlay-backdrop {
+  position: fixed;
+  top: var(--help-center-nav-header-height, 72px);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  max-height: calc(100vh - var(--help-center-nav-header-height, 72px));
+  max-height: calc(100dvh - var(--help-center-nav-header-height, 72px));
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+  animation: help-center-nav-drawer-fade 0.2s ease;
+}
+.help-center-nav-search-overlay {
+  position: fixed;
+  top: var(--help-center-nav-header-height, 72px);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  max-height: calc(100vh - var(--help-center-nav-header-height, 72px));
+  max-height: calc(100dvh - var(--help-center-nav-header-height, 72px));
+  background-color: var(--modus-wc-color-base-page);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  animation: help-center-nav-search-overlay-fade 0.2s ease;
+}
+@keyframes help-center-nav-search-overlay-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.help-center-nav-search-overlay-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.25rem var(--modus-wc-spacing-xl, 2rem) var(--modus-wc-spacing-3xl, 3rem);
+  width: 100%;
+  flex: 1;
+}
+.help-center-nav-search-overlay-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.help-center-nav-search-overlay-top-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--modus-wc-spacing-lg, 1.5rem);
+  width: 100%;
+}
+.help-center-nav-search-overlay-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.help-center-nav-search-overlay-container {
+  width: 100%;
+  background-color: var(--modus-wc-color-base-page);
+  border-radius: var(--modus-wc-border-radius-md, 8px);
+  padding: var(--modus-wc-spacing-lg, 1.5rem) var(--modus-wc-spacing-xl, 2rem);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+.help-center-nav-search-overlay-input-row {
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+.help-center-nav-search-overlay-top-row .help-center-nav-search-overlay-close {
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+}
+.help-center-nav-search-overlay-input-wrapper {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+}
+.help-center-nav-search-overlay-input { width: 100%; }
+/* customClass is on the label (not host). Target label and descendants. */
+.help-center-nav-search-overlay .help-center-nav-search-overlay-input-wrapper modus-wc-text-input .help-center-nav-search-overlay-input,
+.help-center-nav-search-overlay .help-center-nav-search-overlay-input-wrapper modus-wc-text-input .help-center-nav-search-overlay-input input,
+.help-center-nav-search-overlay .help-center-nav-search-overlay-input-wrapper modus-wc-text-input .help-center-nav-search-overlay-input .modus-wc-text-input,
+.help-center-nav-search-overlay .help-center-nav-search-overlay-input-wrapper modus-wc-text-input .help-center-nav-search-overlay-input .modus-wc-input {
+  width: 100% !important;
+  border-top: 1px solid transparent !important;
+  border-left: 1px solid transparent !important;
+  border-right: 1px solid transparent !important;
+  border-bottom: 2px solid var(--modus-wc-color-primary) !important;
+  border-radius: 0 !important;
+  background-color: transparent !important;
+  font-size: var(--modus-wc-font-size-2xl, 2rem) !important;
+  padding: var(--modus-wc-spacing-sm, 0.5rem) 0 !important;
+  box-sizing: border-box !important;
+  box-shadow: none !important;
+  outline: none !important;
+  transition: border-color 0.15s ease !important;
+}
+.help-center-nav-search-overlay .help-center-nav-search-overlay-input-wrapper modus-wc-text-input .help-center-nav-search-overlay-input:focus-within {
+  border-bottom-color: var(--modus-wc-color-primary) !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+.help-center-nav-search-overlay .help-center-nav-search-overlay-input-wrapper modus-wc-text-input .help-center-nav-search-overlay-input .modus-wc-text-input-icon-search {
+  display: none !important;
+}
+.help-center-nav-search-overlay .help-center-nav-search-overlay-input-wrapper modus-wc-text-input .help-center-nav-search-overlay-input input::placeholder {
+  color: var(--modus-wc-color-base-content-low-contrast) !important;
+}
+.help-center-nav-search-overlay .help-center-nav-search-overlay-input-wrapper modus-wc-text-input .help-center-nav-search-overlay-input input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
+.help-center-nav-search-overlay-close,
+.help-center-nav-search-overlay-close modus-wc-button,
+.help-center-nav-search-overlay-close button {
+  color: var(--modus-wc-color-base-content) !important;
+  padding: var(--modus-wc-spacing-sm, 0.5rem) !important;
+  background: transparent !important;
+  flex-shrink: 0;
+}
+.help-center-nav-search-overlay-close modus-wc-icon,
+.help-center-nav-search-overlay-close modus-wc-icon i,
+.help-center-nav-search-overlay-close i.modus-wc-icon {
+  font-size: 1.5rem !important;
+  color: var(--modus-wc-color-base-content) !important;
+}
+.help-center-nav-search-overlay-close modus-wc-icon path {
+  fill: var(--modus-wc-color-base-content) !important;
+}
+.help-center-nav-search-overlay-body {
+  flex: 1;
+  margin-top: var(--modus-wc-spacing-2xl, 2rem);
+  width: 100%;
+  min-width: 0;
+  width: 100%;
+}
+.help-center-nav-search-overlay-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--modus-wc-spacing-3xl, 4rem);
+}
+@media (max-width: 640px) {
+  .help-center-nav-search-overlay-columns { grid-template-columns: 1fr; }
+}
+.help-center-nav-search-overlay-heading {
+  color: var(--modus-wc-color-base-content) !important;
+  font-size: var(--text-xl, 20px) !important;
+  font-weight: 600 !important;
+  margin-bottom: var(--modus-wc-spacing-md, 1rem) !important;
+}
+.help-center-nav-search-overlay-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--modus-wc-spacing-sm, 0.5rem);
+}
+.help-center-nav-search-overlay-link {
+  display: inline-block;
+  padding: var(--modus-wc-spacing-xs, 0.25rem) 0;
+  color: var(--modus-wc-color-primary) !important;
+  text-decoration: underline;
+  font-size: 0.875rem;
+  font-weight: 400;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+}
+.help-center-nav-search-overlay-link:hover {
+  color: var(--modus-wc-color-primary) !important;
+  text-decoration: underline;
+  opacity: 0.9;
+}
+.help-center-nav .help-center-nav-search-btn,
+.help-center-nav .help-center-nav-search-btn modus-wc-button {
+  border-bottom: 2px solid transparent !important;
+  border-radius: 0 !important;
+  transition: border-color 0.15s ease;
+}
+.help-center-nav .help-center-nav-search-btn:hover,
+.help-center-nav.help-center-nav-search-open .help-center-nav-search-btn,
+.help-center-nav .help-center-nav-search-btn modus-wc-button:hover,
+.help-center-nav.help-center-nav-search-open .help-center-nav-search-btn modus-wc-button {
+  border-bottom-color: var(--modus-wc-color-secondary) !important;
+}
+
+/* Help Center Nav: inner container constrains toolbar to max-width */
+.help-center-nav-inner {
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+/* Help Center Nav: toolbar row - page links and CTA (uses ModusWcToolbar) */
+.help-center-nav modus-wc-toolbar {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+}
+.help-center-nav modus-wc-toolbar .modus-wc-navbar {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+}
+.help-center-nav modus-wc-toolbar .modus-wc-navbar.help-center-nav-toolbar,
+modus-wc-toolbar .modus-wc-navbar.help-center-nav-toolbar {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: stretch !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+  min-height: auto !important;
+  flex-wrap: nowrap !important;
+  gap: var(--modus-wc-spacing-md, 1rem);
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
+.help-center-nav modus-wc-toolbar .modus-wc-navbar-start,
+.help-center-nav modus-wc-toolbar .modus-wc-navbar-end,
+modus-wc-toolbar .modus-wc-navbar.help-center-nav-toolbar .modus-wc-navbar-start,
+modus-wc-toolbar .modus-wc-navbar.help-center-nav-toolbar .modus-wc-navbar-end {
+  display: flex !important;
+  align-items: center !important;
+  flex-shrink: 0;
+}
+.help-center-nav modus-wc-toolbar .modus-wc-navbar-start,
+modus-wc-toolbar .modus-wc-navbar.help-center-nav-toolbar .modus-wc-navbar-start {
+  justify-content: flex-start !important;
+  flex: 1;
+  min-width: 0;
+  align-items: stretch !important;
+}
+.help-center-nav modus-wc-toolbar .modus-wc-navbar-end,
+modus-wc-toolbar .modus-wc-navbar.help-center-nav-toolbar .modus-wc-navbar-end {
+  justify-content: flex-end !important;
+  flex-shrink: 0;
+}
+.help-center-nav modus-wc-toolbar .modus-wc-navbar-center,
+modus-wc-toolbar .modus-wc-navbar.help-center-nav-toolbar .modus-wc-navbar-center {
+  flex: 0 0 auto;
+  min-width: 0;
+}
+.help-center-nav-toolbar-start,
+.help-center-nav-toolbar-end {
+  display: flex;
+  align-items: center;
+}
+.help-center-nav-toolbar-start {
+  flex-wrap: nowrap;
+  gap: var(--modus-wc-spacing-md, 1rem);
+  align-items: stretch;
+}
+.help-center-nav-toolbar-links {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: var(--modus-wc-spacing-md, 1rem);
+  min-height: 44px;
+}
+.help-center-nav-toolbar-link-fill {
+  display: flex !important;
+  align-items: stretch !important;
+}
+.help-center-nav-toolbar-link-fill .help-center-nav-toolbar-link-btn,
+.help-center-nav-toolbar-link-fill modus-wc-typography {
+  height: 100%;
+  display: flex !important;
+  align-items: center;
+}
+.help-center-nav-toolbar-link-fill modus-wc-typography {
+  min-height: 100%;
+}
+@container help-center-nav (min-width: 641px) {
+  .help-center-nav-toolbar-links {
+    gap: var(--modus-wc-spacing-xl, 2rem) !important;
+  }
+  .help-center-nav-mobile-accordion-item {
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+  }
+  .help-center-nav-mobile-accordion-item > .help-center-nav-toolbar-link {
+    flex: 1;
+    display: flex !important;
+    align-items: stretch;
+    min-height: 0;
+  }
+}
+.help-center-nav-toolbar-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.help-center-nav-toolbar-link:hover modus-wc-typography {
+  color: var(--modus-wc-color-primary) !important;
+}
+.help-center-nav-mega-menu-link {
+  position: relative;
+}
+.help-center-nav-mega-menu-trigger {
+  align-self: stretch;
+  display: flex;
+}
+.help-center-nav-toolbar-link-btn {
+  display: inline-flex;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  text-decoration: none;
+  transition: color 0.15s ease;
+  position: relative;
+  align-self: stretch;
+}
+.help-center-nav-toolbar-link-btn:hover modus-wc-typography,
+.help-center-nav-toolbar-link-active modus-wc-typography {
+  color: var(--modus-wc-color-primary) !important;
+}
+.help-center-nav-toolbar-link-active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: var(--modus-wc-color-warning);
+}
+/* Help Center Nav: mega-menu dropdown overlay */
+.help-center-nav-mega-menu-root {
+  position: relative;
+}
+.help-center-nav:has(.help-center-nav-mega-menu-active) {
+  position: relative;
+  z-index: 100;
+}
+.help-center-nav-mega-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: transparent;
+}
+.help-center-nav-mega-menu-dropdown {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  z-index: 100;
+  padding-top: 0;
+  width: 100%;
+  animation: help-center-nav-mega-menu-fade 0.2s ease;
+}
+@keyframes help-center-nav-mega-menu-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.help-center-nav-header-row {
+  position: relative;
+  z-index: 102;
+}
+.help-center-nav-mega-menu-root > modus-wc-toolbar {
+  position: relative;
+  z-index: 101;
+}
+.help-center-nav modus-wc-toolbar .modus-wc-navbar.help-center-nav-toolbar {
+  position: relative;
+  z-index: 101;
+}
+.help-center-nav-mega-menu-card {
+  background-color: var(--modus-wc-color-base-100) !important;
+  color: var(--modus-wc-color-base-content) !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+  border-radius: 0 0 var(--modus-wc-border-radius-box, var(--radius-card, 16px)) var(--modus-wc-border-radius-box, var(--radius-card, 16px)) !important;
+  overflow: hidden;
+  padding: var(--modus-wc-spacing-xl, 2rem) !important;
+  max-width: 580px;
+  min-width: fit-content;
+  min-height: 550px;
+  transition: max-width 0.3s ease;
+}
+.help-center-nav-mega-menu-card modus-wc-typography {
+  color: var(--modus-wc-color-base-content) !important;
+}
+.help-center-nav-mega-menu-card-page-bg {
+  background-color: var(--modus-wc-color-base-page) !important;
+}
+.help-center-nav-mega-menu-card-expanded {
+  width: 100%;
+  max-width: min(1280px, 100%);
+}
+.help-center-nav-mega-menu-grid {
+  display: grid;
+  grid-template-columns: 200px 0fr 300px;
+  gap: 0;
+  align-items: stretch;
+  transition: grid-template-columns 0.3s ease;
+}
+.help-center-nav-mega-menu-switching .help-center-nav-mega-menu-card,
+.help-center-nav-mega-menu-switching .help-center-nav-mega-menu-grid,
+.help-center-nav-mega-menu-switching .help-center-nav-mega-menu-middle {
+  transition: none !important;
+}
+.help-center-nav-mega-menu-card-expanded .help-center-nav-mega-menu-grid {
+  grid-template-columns: 200px 1fr 300px;
+}
+.help-center-nav-mega-menu-left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--modus-wc-spacing-xs, 0.5rem);
+  padding-right: var(--modus-wc-spacing-lg, 1.5rem);
+  border-right: 1px solid var(--modus-wc-color-base-200);
+}
+.help-center-nav-mega-menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--modus-wc-spacing-md, 1rem);
+  padding: var(--modus-wc-spacing-sm, 0.5rem) var(--modus-wc-spacing-md, 1rem);
+  border-radius: var(--modus-wc-border-radius-md, 8px);
+  text-decoration: none;
+  color: var(--modus-wc-color-base-content);
+  transition: background-color 0.15s ease, color 0.15s ease;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  width: 100%;
+  text-align: left;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.help-center-nav-mega-menu-item:hover {
+  background-color: var(--modus-wc-color-base-200);
+  color: var(--modus-wc-color-base-content);
+}
+.help-center-nav-mega-menu-item:hover modus-wc-typography {
+  color: inherit !important;
+}
+.help-center-nav-mega-menu-item-label {
+  font-size: 1rem !important;
+  font-weight: 400 !important;
+  color: var(--modus-wc-color-base-content) !important;
+}
+.help-center-nav-mega-menu-item-active {
+  background-color: var(--modus-wc-color-secondary) !important;
+  color: var(--modus-wc-color-secondary-content) !important;
+  padding: var(--modus-wc-spacing-sm, 0.5rem) var(--modus-wc-spacing-md, 1rem) !important;
+  display: flex;
+  align-items: center;
+}
+.help-center-nav-mega-menu-item-active modus-wc-typography,
+.help-center-nav-mega-menu-item-active .help-center-nav-mega-menu-item-label {
+  color: var(--modus-wc-color-secondary-content, var(--modus-wc-color-on-secondary)) !important;
+  font-weight: 700 !important;
+}
+.help-center-nav-toolbar-cta,
+.help-center-nav-toolbar-cta button,
+.help-center-nav-toolbar modus-wc-button.help-center-nav-toolbar-cta button {
+  border-radius: 9999px !important;
+}
+@container help-center-nav (max-width: 640px) {
+  .help-center-nav modus-wc-toolbar .modus-wc-navbar.help-center-nav-toolbar,
+  modus-wc-toolbar .modus-wc-navbar.help-center-nav-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .help-center-nav modus-wc-toolbar .modus-wc-navbar-start,
+  modus-wc-toolbar .modus-wc-navbar.help-center-nav-toolbar .modus-wc-navbar-start {
+    order: 1;
+  }
+  .help-center-nav modus-wc-toolbar .modus-wc-navbar-end,
+  modus-wc-toolbar .modus-wc-navbar.help-center-nav-toolbar .modus-wc-navbar-end {
+    order: 2;
+    align-self: flex-end;
+  }
+  .help-center-nav-toolbar-links {
+    flex-wrap: wrap;
+  }
+}
+
+/* Help Center Nav: mobile layout - hamburger replaces right content, expandable rearranges */
+@container help-center-nav (min-width: 641px) {
+  .help-center-nav-desktop-right { display: flex !important; }
+  .help-center-nav-mobile-hamburger-wrapper,
+  .help-center-nav-mobile-hamburger,
+  .help-center-nav-mobile-header-right,
+  .help-center-nav-mobile-close-wrapper { display: none !important; }
+  .help-center-nav-expandable { display: block !important; }
+  .help-center-nav-mobile-lang-trimble, .help-center-nav-mobile-search { display: none !important; }
+}
+@container help-center-nav (max-width: 640px) {
+  .help-center-nav-desktop-right { display: none !important; }
+  .help-center-nav-mobile-hamburger-wrapper { display: block !important; }
+  .help-center-nav-mobile-hamburger { display: inline-flex !important; }
+  .help-center-nav-mobile-header-right, .help-center-nav-expandable { display: none !important; }
+}
+@container help-center-nav (max-width: 640px) {
+  .help-center-nav.help-center-nav-mobile-expanded .help-center-nav-mobile-hamburger-wrapper,
+  .help-center-nav.help-center-nav-mobile-expanded .help-center-nav-mobile-hamburger { display: none !important; }
+  .help-center-nav.help-center-nav-mobile-expanded .help-center-nav-mobile-header-right { display: flex !important; }
+  .help-center-nav.help-center-nav-mobile-expanded .help-center-nav-mobile-header-right .help-center-nav-search-btn,
+  .help-center-nav.help-center-nav-mobile-expanded .help-center-nav-mobile-header-right modus-wc-button.help-center-nav-search-btn { display: none !important; }
+  .help-center-nav.help-center-nav-mobile-expanded .help-center-nav-expandable { display: block !important; }
+}
+@container help-center-nav (max-width: 640px) {
+  .help-center-nav.help-center-nav-mobile-expanded modus-wc-toolbar .modus-wc-navbar.help-center-nav-toolbar,
+  .help-center-nav.help-center-nav-mobile-expanded .help-center-nav-toolbar {
+    flex-direction: column !important; align-items: stretch !important; gap: 0 !important;
+  }
+  .help-center-nav.help-center-nav-mobile-expanded .help-center-nav-toolbar-start,
+  .help-center-nav.help-center-nav-mobile-expanded .help-center-nav-toolbar-end,
+  .help-center-nav.help-center-nav-mobile-expanded .modus-wc-navbar-start,
+  .help-center-nav.help-center-nav-mobile-expanded .modus-wc-navbar-end {
+    order: unset; align-self: unset; width: 100% !important;
+  }
+  .help-center-nav.help-center-nav-mobile-expanded .help-center-nav-toolbar-links {
+    flex-direction: column !important; align-items: stretch !important; gap: 0 !important; width: 100% !important;
+  }
+  .help-center-nav.help-center-nav-mobile-expanded .help-center-nav-toolbar-link,
+  .help-center-nav.help-center-nav-mobile-expanded a.help-center-nav-toolbar-link {
+    padding: var(--modus-wc-spacing-lg, 1.5rem);
+    border-bottom: 1px dotted var(--modus-wc-color-base-200);
+    font-weight: 600 !important; text-transform: uppercase !important; letter-spacing: 0.05em;
+    width: 100% !important; min-width: 100% !important; display: block !important; box-sizing: border-box !important;
+  }
+  .help-center-nav.help-center-nav-mobile-expanded .help-center-nav-toolbar-link:last-child { border-bottom: none; }
+  .help-center-nav.help-center-nav-mobile-expanded .help-center-nav-toolbar-end { display: none !important; }
+  .help-center-nav.help-center-nav-mobile-expanded .help-center-nav-toolbar-wrapper {
+    width: 100% !important; max-width: 100% !important;
+  }
+  .help-center-nav.help-center-nav-mobile-expanded .help-center-nav-mobile-search { display: block !important; }
+  .help-center-nav.help-center-nav-mobile-expanded .help-center-nav-mobile-lang-trimble {
+    display: flex !important; flex-direction: column !important; gap: 0 !important;
+    padding-top: 0; margin-top: 0; border-top: 1px dotted var(--modus-wc-color-base-200);
+  }
+  .help-center-nav.help-center-nav-mobile-expanded .help-center-nav-mobile-lang-trimble .help-center-nav-search-btn,
+  .help-center-nav.help-center-nav-mobile-expanded .help-center-nav-mobile-lang-trimble modus-wc-button.help-center-nav-search-btn { display: none !important; }
+  .help-center-nav.help-center-nav-mobile-expanded .help-center-nav-mobile-lang-trimble .help-center-nav-lang-dropdown {
+    padding: var(--modus-wc-spacing-md, 1rem) 0; align-self: flex-start;
+  }
+  .help-center-nav.help-center-nav-mobile-expanded .help-center-nav-mobile-lang-trimble .help-center-nav-split-buttons-wrapper {
+    margin-top: 0; align-self: flex-end;
+  }
+}
+
+/* Optional: When embedding in pattern docs/code preview - constrain z-index so overlays don't overlap main app */
+.code-preview-container .help-center-nav {
+  position: static !important; /* So backdrop/drawer use code-preview-container as containing block */
+}
+.code-preview-container .help-center-nav .help-center-nav-header-row,
+.code-preview-container .help-center-nav .help-center-nav-inner {
+  position: relative !important;
+  z-index: 110 !important; /* Keep navbar above overlay */
+}
+.code-preview-container .help-center-nav-mega-menu-backdrop {
+  position: absolute !important;
+  z-index: 1 !important;
+}
+.code-preview-container .help-center-nav-mega-menu-dropdown {
+  z-index: 2 !important;
+}
+.code-preview-container .help-center-nav-drawer-backdrop {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 114 !important;
+}
+.code-preview-container .help-center-nav-drawer {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  height: auto !important;
+  z-index: 115 !important;
+}
+.code-preview-container .help-center-nav-search-overlay-backdrop {
+  position: absolute !important;
+  top: var(--help-center-nav-header-height, 72px) !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  max-height: calc(100% - var(--help-center-nav-header-height, 72px)) !important;
+  z-index: 114 !important;
+}
+.code-preview-container .help-center-nav-search-overlay {
+  position: absolute !important;
+  top: var(--help-center-nav-header-height, 72px) !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  max-height: calc(100% - var(--help-center-nav-header-height, 72px)) !important;
+  z-index: 115 !important;
+}

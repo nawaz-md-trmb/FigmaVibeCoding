@@ -1,0 +1,26 @@
+/**
+ * Modus AI / AI Patterns hero + Modus AI tool detail headers: gradient-filled Modus icon
+ * (light DOM `i` + background-clip). Diagonal top-left → bottom-right (Trimble AI mark palette).
+ */
+.page-header-ai-stars-gradient-icon,
+.modus-ai-mark-gradient-icon {
+  display: inline-block;
+  /* Trimble AI: AI Blue → AI Pink (official endpoints) with mid-stops for smooth icon fill */
+  background-image: linear-gradient(
+    to bottom right,
+    #00e6fd 0%,
+    #0078f0 28%,
+    #6b2cff 55%,
+    #d010d8 82%,
+    #ff00d7 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Plain <i>: Modus xl font-size is scoped under modus-wc-icon; mirror size="xl" (4rem). */
+.page-header-ai-stars-gradient-icon.modus-icons.modus-wc-icon--xl {
+  font-size: 4rem;
+}

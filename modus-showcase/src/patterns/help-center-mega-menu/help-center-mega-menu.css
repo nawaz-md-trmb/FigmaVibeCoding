@@ -1,0 +1,251 @@
+/* Mega menu root container */
+.help-center-nav-mega-menu-root {
+  position: relative;
+}
+/* Backdrop and dropdown - fixed when in full nav, absolute when in pattern preview */
+.help-center-nav-mega-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: transparent;
+}
+.help-center-nav-mega-menu-dropdown {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  z-index: 100;
+  padding-top: 0;
+  width: 100%;
+  animation: help-center-nav-mega-menu-fade 0.2s ease;
+}
+@keyframes help-center-nav-mega-menu-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.help-center-nav-mega-menu-card {
+  background-color: var(--modus-wc-color-base-100) !important;
+  color: var(--modus-wc-color-base-content) !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+  border-radius: 0 0 var(--modus-wc-border-radius-box, var(--radius-card, 16px)) var(--modus-wc-border-radius-box, var(--radius-card, 16px)) !important;
+  overflow: hidden;
+  padding: var(--modus-wc-spacing-xl, 2rem) !important;
+  max-width: 580px;
+  min-width: fit-content;
+  min-height: 550px;
+  transition: max-width 0.3s ease;
+}
+.help-center-nav-mega-menu-card modus-wc-typography {
+  color: var(--modus-wc-color-base-content) !important;
+}
+.help-center-nav-mega-menu-card-page-bg {
+  background-color: var(--modus-wc-color-base-page) !important;
+}
+.help-center-nav-mega-menu-card-expanded {
+  width: 100%;
+  max-width: min(1280px, 100%);
+}
+.help-center-nav-mega-menu-grid {
+  display: grid;
+  grid-template-columns: 200px 0fr 300px;
+  gap: 0;
+  align-items: stretch;
+  transition: grid-template-columns 0.3s ease;
+}
+.help-center-nav-mega-menu-card-expanded .help-center-nav-mega-menu-grid {
+  grid-template-columns: 200px 1fr 300px;
+}
+.help-center-nav-mega-menu-left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--modus-wc-spacing-xs, 0.5rem);
+  padding-right: var(--modus-wc-spacing-lg, 1.5rem);
+  border-right: 1px solid var(--modus-wc-color-base-200);
+}
+.help-center-nav-mega-menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--modus-wc-spacing-md, 1rem);
+  padding: var(--modus-wc-spacing-sm, 0.5rem) var(--modus-wc-spacing-md, 1rem);
+  border-radius: var(--modus-wc-border-radius-md, 8px);
+  text-decoration: none;
+  color: var(--modus-wc-color-base-content);
+  transition: background-color 0.15s ease, color 0.15s ease;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  width: 100%;
+  text-align: left;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.help-center-nav-mega-menu-item:hover {
+  background-color: var(--modus-wc-color-base-200);
+  color: var(--modus-wc-color-base-content);
+}
+.help-center-nav-mega-menu-item:hover modus-wc-typography {
+  color: inherit !important;
+}
+.help-center-nav-mega-menu-item-label {
+  font-size: 1rem !important;
+  font-weight: 400 !important;
+  color: var(--modus-wc-color-base-content) !important;
+}
+.help-center-nav-mega-menu-item-active {
+  background-color: var(--modus-wc-color-secondary) !important;
+  color: var(--modus-wc-color-secondary-content) !important;
+  padding: var(--modus-wc-spacing-sm, 0.5rem) var(--modus-wc-spacing-md, 1rem) !important;
+  display: flex;
+  align-items: center;
+}
+.help-center-nav-mega-menu-item-active modus-wc-typography,
+.help-center-nav-mega-menu-item-active .help-center-nav-mega-menu-item-label {
+  color: var(--modus-wc-color-secondary-content, var(--modus-wc-color-on-secondary)) !important;
+  font-weight: 700 !important;
+}
+.help-center-nav-mega-menu-middle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--modus-wc-spacing-md, 1rem);
+  align-items: start;
+  align-content: start;
+  min-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  padding-left: var(--modus-wc-spacing-lg, 1.5rem);
+  padding-right: var(--modus-wc-spacing-lg, 1.5rem);
+  border-right: 1px solid var(--modus-wc-color-base-200);
+  transition: opacity 0.2s ease 0.1s;
+}
+.help-center-nav-mega-menu-middle-expanded {
+  opacity: 1;
+}
+.help-center-nav-mega-menu-right {
+  min-width: 0;
+  align-self: start;
+}
+.help-center-nav-mega-menu-sub-nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--modus-wc-spacing-sm, 0.5rem);
+  padding: var(--modus-wc-spacing-sm, 0.5rem) 0;
+  text-decoration: none;
+  color: var(--modus-wc-color-base-content);
+  transition: color 0.15s ease;
+  font-size: 1rem;
+}
+.help-center-nav-mega-menu-sub-nav-item:hover .help-center-nav-mega-menu-sub-nav-label {
+  color: var(--modus-wc-color-primary) !important;
+}
+.help-center-nav-mega-menu-featured-card {
+  width: 300px !important;
+  min-width: 300px !important;
+  max-width: 300px !important;
+  background-color: var(--modus-wc-color-base-200) !important;
+  padding: 0 !important;
+  overflow: hidden;
+  border-radius: 0 !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
+  border: none !important;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+}
+.help-center-nav-mega-menu-featured-card article,
+.help-center-nav-mega-menu-featured-card .modus-wc-card {
+  width: 300px !important;
+  min-width: 300px !important;
+  max-width: 300px !important;
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+}
+.help-center-nav-mega-menu-featured-card .modus-wc-card-body {
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+}
+.help-center-nav-mega-menu-featured-card .modus-wc-card-title {
+  padding: var(--modus-wc-spacing-lg, 1.5rem) var(--modus-wc-spacing-lg, 1.5rem) 0 !important;
+  margin: 0 !important;
+  color: var(--modus-wc-color-base-content) !important;
+}
+.help-center-nav-mega-menu-featured-card [slot="header"],
+.help-center-nav-mega-menu-featured-card .help-center-nav-mega-menu-featured-image {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 172px;
+  flex: 0 0 172px;
+  overflow: hidden;
+  display: block;
+  line-height: 0;
+}
+.help-center-nav-mega-menu-featured-image .help-center-nav-mega-menu-featured-img {
+  width: 100%;
+  height: 172px;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+.help-center-nav-mega-menu-featured-content {
+  flex: 1;
+  padding: var(--modus-wc-spacing-lg, 1.5rem) !important;
+  display: flex;
+  flex-direction: column;
+  gap: var(--modus-wc-spacing-sm, 0.5rem);
+}
+.help-center-nav-mega-menu-featured-title {
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  color: var(--modus-wc-color-base-content) !important;
+}
+.help-center-nav-mega-menu-featured-desc {
+  font-size: 0.875rem !important;
+  color: var(--modus-wc-color-base-content) !important;
+  line-height: 1.4 !important;
+}
+.help-center-nav-mega-menu-featured-cta {
+  display: flex;
+  align-items: center;
+  gap: var(--modus-wc-spacing-md, 1rem);
+  margin-top: var(--modus-wc-spacing-sm, 0.5rem);
+}
+.help-center-nav-mega-menu-featured-btn {
+  width: 40px !important;
+  height: 40px !important;
+  min-width: 40px !important;
+  min-height: 40px !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  background-color: var(--modus-wc-color-warning) !important;
+  color: var(--modus-wc-color-warning-content, #ffffff) !important;
+}
+
+/* Standalone pattern preview: show mega menu at all sizes, constrain z-index */
+.help-center-mega-menu-pattern-preview .help-center-nav-mega-menu-backdrop,
+.help-center-mega-menu-pattern-preview .help-center-nav-mega-menu-dropdown {
+  display: block !important;
+}
+.help-center-mega-menu-pattern-preview .help-center-nav-mega-menu-backdrop {
+  position: absolute !important;
+  z-index: 1 !important;
+}
+.help-center-mega-menu-pattern-preview .help-center-nav-mega-menu-dropdown {
+  z-index: 2 !important;
+}
+.help-center-mega-menu-pattern-preview .help-center-mega-menu-pattern-preview-trigger {
+  z-index: 3 !important;
+}
+/* Mobile: hide mega menu (use accordion instead) - pattern preview overrides this */
+@container help-center-nav (max-width: 640px) {
+  .help-center-nav-mega-menu-backdrop,
+  .help-center-nav-mega-menu-dropdown {
+    display: none !important;
+  }
+}

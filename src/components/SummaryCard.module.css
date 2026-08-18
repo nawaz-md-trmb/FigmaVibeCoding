@@ -1,0 +1,30 @@
+.card {
+  background: var(--color-gray-light);
+  border-radius: 32px;
+  padding: 24px;
+  width: 395px;
+  min-height: 175px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow: hidden;
+}
+
+.card h3 {
+  margin: 0;
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 27px;
+  letter-spacing: 0.027px;
+  color: var(--color-trimble-grey);
+}
+
+.card p {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  letter-spacing: 0.021px;
+  color: var(--color-trimble-gray);
+}

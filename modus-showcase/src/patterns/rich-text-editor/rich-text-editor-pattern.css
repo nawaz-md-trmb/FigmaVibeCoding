@@ -1,0 +1,84 @@
+/* Rich Text Editor pattern — tighter inset than default Modus card compact (preview + docs) */
+.rte-pattern-host modus-wc-card .modus-wc-card .modus-wc-card-body {
+  padding: 0.5rem;
+}
+
+/* RTE toolbar: slot wrappers fix width; host must stretch so shadow <select> isn't clipped */
+.rte-pattern-host [role='toolbar'] modus-wc-select {
+  display: block;
+  width: 100%;
+}
+
+.rte-pattern-host .rte-pattern-editor.rte-pattern-editor-font-sans {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.rte-pattern-host .rte-pattern-editor.rte-pattern-editor-font-serif {
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.rte-pattern-host .rte-pattern-editor.rte-pattern-editor-font-mono {
+  font-family: Consolas, 'Courier New', monospace;
+}
+
+.rte-pattern-host .rte-pattern-editor :where(h1, h2, h3, h4) {
+  margin-block: 0.5em 0.25em;
+  font-weight: 600;
+  color: var(--modus-wc-color-base-content);
+}
+
+.rte-pattern-host .rte-pattern-editor .rte-attachment {
+  margin-block: 0.35em;
+}
+
+.rte-pattern-host .rte-pattern-editor .rte-attachment-image {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin-block: 0.35em;
+}
+
+/* Column stack even when contenteditable leaves stray text nodes inside the link */
+.rte-pattern-host .rte-pattern-editor .rte-attachment-image > a {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.rte-pattern-host .rte-pattern-editor .rte-attachment-image img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  max-height: min(40vh, 18rem);
+  object-fit: contain;
+  border-radius: var(--modus-wc-border-radius-input);
+  border: 1px solid var(--modus-wc-color-base-200);
+  background-color: var(--modus-wc-color-base-100);
+}
+
+.rte-pattern-host .rte-pattern-editor .rte-attachment-image figcaption {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin-top: 0.35rem;
+  line-height: 1.4;
+  font-size: var(--modus-wc-font-size-sm, 0.875rem);
+  color: var(--modus-wc-color-base-content-low-contrast);
+}
+
+/* Lists: outside markers clip under overflow-auto; inside keeps bullets/numbers within the scroll box */
+.rte-pattern-host .rte-pattern-editor ul,
+.rte-pattern-host .rte-pattern-editor ol {
+  margin-block: 0.25em;
+  padding-inline-start: 1.75rem;
+  list-style-position: inside;
+}
+
+.rte-pattern-host .rte-pattern-editor li {
+  margin-inline-start: 0;
+}

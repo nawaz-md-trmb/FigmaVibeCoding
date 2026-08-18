@@ -1,0 +1,16 @@
+/* Modus WC global overrides */
+:root {
+  --padding-card: 1rem;
+}
+
+:focus-visible {
+  outline: 2px solid var(--modus-wc-color-primary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

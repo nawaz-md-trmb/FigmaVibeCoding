@@ -1,0 +1,22 @@
+/* Resizable card: fill outer width/height */
+[data-resizable-card] modus-wc-card,
+[data-resizable-card] modus-wc-card article,
+[data-resizable-card] modus-wc-card .modus-wc-card {
+  height: 100% !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 0 !important;
+  min-width: 0 !important;
+}
+
+[data-resizable-card] modus-wc-card .modus-wc-card-body {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  min-width: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}

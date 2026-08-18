@@ -1,0 +1,6 @@
+.editable-table-bg modus-wc-table .modus-wc-table {
+  background-color: var(--modus-wc-color-base-page) !important;
+}
+.editable-table-bg modus-wc-table table {
+  background-color: var(--modus-wc-color-base-page) !important;
+}

@@ -1,0 +1,43 @@
+.nav {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  background: var(--color-white);
+  box-shadow: 0 0 4px 0 rgb(54 53 69 / 30%);
+  flex-shrink: 0;
+  z-index: 2;
+}
+
+.left,
+.right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo {
+  display: block;
+  width: 229px;
+  height: 24px;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-gray-8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.avatar img {
+  filter: brightness(0) invert(1);
+}

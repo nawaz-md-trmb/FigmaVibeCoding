@@ -1,0 +1,480 @@
+/* Agentic Basic Chat — scoped chrome for pattern preview + copy-out CSS (see pattern relatedStyles). */
+@import "./chat-bubble-pattern.css";
+
+.agentic-basic-chat-shell .agentic-basic-chat-code-block-scroll {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Dark embed toolbar (#1a1a1a): language label stays white in light and dark app themes. */
+.agentic-basic-chat-shell
+  .agentic-basic-chat-code-block
+  modus-wc-typography.agentic-basic-chat-code-lang
+  .modus-wc-typography {
+  color: #fff !important;
+}
+
+.agentic-basic-chat-shell .agentic-basic-chat-inline-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+  font-size: 0.875em;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  background-color: var(--modus-wc-color-base-200);
+  color: var(--modus-wc-color-base-content);
+}
+
+.agentic-basic-chat-shell .agentic-basic-chat-composer-host modus-wc-text-input {
+  width: 100%;
+}
+
+/* Composer field: same inset idle vs focused; right gutter reserves space for trailing icon buttons. */
+.agentic-basic-chat-shell .agentic-basic-chat-composer-host modus-wc-text-input input,
+.agentic-basic-chat-shell .agentic-basic-chat-composer-host modus-wc-text-input .modus-wc-text-input,
+.agentic-basic-chat-shell .agentic-basic-chat-composer-host modus-wc-text-input .modus-wc-input {
+  padding-block: var(--modus-wc-spacing-md, 1rem) !important;
+  padding-left: var(--modus-wc-spacing-md, 1rem) !important;
+}
+
+.agentic-basic-chat-shell
+  .agentic-basic-chat-composer-host.agentic-basic-chat-composer-has-attach
+  modus-wc-text-input
+  input,
+.agentic-basic-chat-shell
+  .agentic-basic-chat-composer-host.agentic-basic-chat-composer-has-attach
+  modus-wc-text-input
+  .modus-wc-text-input,
+.agentic-basic-chat-shell
+  .agentic-basic-chat-composer-host.agentic-basic-chat-composer-has-attach
+  modus-wc-text-input
+  .modus-wc-input {
+  padding-right: calc(var(--modus-wc-spacing-md, 1rem) + 3.75rem) !important;
+}
+
+.agentic-basic-chat-shell
+  .agentic-basic-chat-composer-host:not(.agentic-basic-chat-composer-has-attach)
+  modus-wc-text-input
+  input,
+.agentic-basic-chat-shell
+  .agentic-basic-chat-composer-host:not(.agentic-basic-chat-composer-has-attach)
+  modus-wc-text-input
+  .modus-wc-text-input,
+.agentic-basic-chat-shell
+  .agentic-basic-chat-composer-host:not(.agentic-basic-chat-composer-has-attach)
+  modus-wc-text-input
+  .modus-wc-input {
+  padding-right: calc(var(--modus-wc-spacing-md, 1rem) + 2.75rem) !important;
+}
+
+/* Composer shell: idle = thin neutral border; focused/typing = rainbow ring (see screenshots). */
+.agentic-basic-chat-shell .agentic-basic-chat-composer-shell--idle {
+  box-sizing: border-box;
+  border: 1px solid var(--modus-wc-color-base-200);
+  border-radius: 1.75rem;
+  /* 1px border + 1px padding = 2px total inset — matches `--active` padding so text does not jog on focus. */
+  padding: 1px;
+  background-color: transparent;
+  overflow: hidden;
+}
+
+.agentic-basic-chat-shell .agentic-basic-chat-composer-shell--idle .agentic-basic-chat-composer-rainbow-inset {
+  border-radius: calc(1.75rem - 2px);
+}
+
+.agentic-basic-chat-shell .agentic-basic-chat-composer-shell--active {
+  padding: 2px;
+  border-radius: 1.75rem;
+  border: none;
+  overflow: hidden;
+  background-color: transparent;
+  background-image: linear-gradient(
+    var(--agentic-chat-rainbow-angle, 118deg),
+    #22d3ee,
+    #3b82f6,
+    #a855f7,
+    #ec4899,
+    #f97316,
+    #22d3ee
+  );
+  background-size: 240% 240%;
+  animation: agentic-basic-chat-composer-border-shift 5.5s linear infinite;
+}
+
+.agentic-basic-chat-shell .agentic-basic-chat-composer-shell--active .agentic-basic-chat-composer-rainbow-inset {
+  border-radius: calc(1.75rem - 2px);
+}
+
+.agentic-basic-chat-shell .agentic-basic-chat-composer-rainbow-inset {
+  position: relative;
+  background-color: var(--modus-wc-color-base-page);
+  /* Clip Modus text-input inner fill to the same radius as the outer shell / gradient ring. */
+  overflow: hidden;
+}
+
+@keyframes agentic-basic-chat-composer-border-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .agentic-basic-chat-shell .agentic-basic-chat-composer-shell--active {
+    animation: none;
+    background-size: 100% 100%;
+    background-position: center;
+  }
+}
+
+/* Modus emblem tiles (1:1); fixed w/h beats modus-wc-button row stretch on recents.
+   No overflow:hidden — product SVG viewBoxes clip to a pinhole if the host is clipped (see agentic rail). */
+.agentic-basic-chat-shell .agentic-basic-chat-agent-tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  flex: 0 0 auto;
+  flex-shrink: 0;
+  align-self: center;
+  box-sizing: border-box;
+  aspect-ratio: 1;
+  border-radius: 0.75rem;
+}
+
+.agentic-basic-chat-shell .agentic-basic-chat-agent-tile--sm {
+  width: 2rem !important;
+  height: 2rem !important;
+  min-width: 2rem !important;
+  min-height: 2rem !important;
+  max-width: 2rem !important;
+  max-height: 2rem !important;
+}
+
+.agentic-basic-chat-shell .agentic-basic-chat-agent-tile--md {
+  width: 2.25rem !important;
+  height: 2.25rem !important;
+  min-width: 2.25rem !important;
+  min-height: 2.25rem !important;
+  max-width: 2.25rem !important;
+  max-height: 2.25rem !important;
+}
+
+.agentic-basic-chat-shell .agentic-basic-chat-agent-tile--lg {
+  width: 2.75rem !important;
+  height: 2.75rem !important;
+  min-width: 2.75rem !important;
+  min-height: 2.75rem !important;
+  max-width: 2.75rem !important;
+  max-height: 2.75rem !important;
+}
+
+.agentic-basic-chat-shell .agentic-basic-chat-agent-tile modus-wc-logo {
+  display: block !important;
+  box-sizing: border-box;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  flex: none !important;
+}
+
+/*
+ * Suggested prompts — `customClass` on ModusWcButton is applied to the inner native button, not the host.
+ * Select with `button.agentic-basic-chat-suggest` (and `:has(...)` for host width). Slotted label nodes stay in light DOM.
+ */
+.agentic-basic-chat-shell modus-wc-button:has(button.agentic-basic-chat-suggest) {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.agentic-basic-chat-shell modus-wc-button button.agentic-basic-chat-suggest {
+  display: flex !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+}
+
+/* Light-DOM label: fill button row; shrink + truncate; end padding keeps ellipsis off the pill edge. */
+.agentic-basic-chat-shell modus-wc-button button.agentic-basic-chat-suggest .agentic-basic-chat-suggest-label {
+  display: block;
+  box-sizing: border-box;
+  flex: 1 1 0% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  padding-inline-end: var(--modus-wc-spacing-sm, 0.5rem) !important;
+}
+
+/* Inner light-DOM span — single-line ellipsis inside padded label box. */
+.agentic-basic-chat-shell
+  modus-wc-button
+  button.agentic-basic-chat-suggest
+  .agentic-basic-chat-suggest-label
+  .agentic-basic-chat-suggest-text {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Typography host wraps slotted text; keep shrink chain for nested span. */
+.agentic-basic-chat-shell
+  modus-wc-button
+  button.agentic-basic-chat-suggest
+  .agentic-basic-chat-suggest-label
+  modus-wc-typography {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Previous conversations — same `customClass` → inner button pattern. */
+.agentic-basic-chat-shell modus-wc-button:has(button.agentic-basic-chat-prev-convo-item) {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+.agentic-basic-chat-shell modus-wc-button button.agentic-basic-chat-prev-convo-item {
+  justify-content: flex-start !important;
+  align-items: center !important;
+  gap: var(--modus-wc-spacing-sm, 0.5rem);
+  width: 100%;
+  min-width: 0 !important;
+  overflow: hidden;
+}
+
+.agentic-basic-chat-shell modus-wc-button button.agentic-basic-chat-prev-convo-item modus-wc-typography {
+  display: block;
+  min-width: 0 !important;
+  flex: 1 1 0%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.agentic-basic-chat-shell
+  modus-wc-button
+  button.agentic-basic-chat-prev-convo-item
+  modus-wc-typography
+  .modus-wc-typography {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Previous Conversations — emblem tiles ~60% of standard sm (2rem → 1.2rem); radius scales with footprint. */
+.agentic-basic-chat-shell
+  modus-wc-button
+  button.agentic-basic-chat-prev-convo-item
+  .agentic-basic-chat-agent-tile.agentic-basic-chat-agent-tile--sm {
+  width: 1.2rem !important;
+  height: 1.2rem !important;
+  min-width: 1.2rem !important;
+  min-height: 1.2rem !important;
+  max-width: 1.2rem !important;
+  max-height: 1.2rem !important;
+  border-radius: 0.45rem;
+}
+
+.agentic-basic-chat-shell .agentic-basic-chat-thinking__loader-slot {
+  width: 2.25rem;
+  height: 2.25rem;
+  min-width: 2.25rem;
+  min-height: 2.25rem;
+}
+
+.agentic-basic-chat-shell ul.agentic-basic-chat-prose-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--modus-wc-spacing-xs, 0.25rem);
+}
+
+.agentic-basic-chat-shell ul.agentic-basic-chat-prose-list > li {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--modus-wc-spacing-sm, 0.5rem);
+  margin: 0;
+  padding: 0;
+  padding-left: 1rem;
+  position: relative;
+  list-style: none;
+}
+
+.agentic-basic-chat-shell ul.agentic-basic-chat-prose-list > li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55rem;
+  width: 0.3125rem;
+  height: 0.3125rem;
+  border-radius: 9999px;
+  background-color: var(--modus-wc-color-base-content-low-contrast);
+}
+
+.agentic-basic-chat-shell ul.agentic-basic-chat-prose-list > li::marker {
+  content: none;
+}
+
+/* Show Thinking — tool rows: Modus sm buttons use a fixed height; auto height + center
+   keeps icon + mono label optically centered in the hover fill (see InteractiveAgenticBasicChat). */
+.agentic-basic-chat-shell modus-wc-button button.agentic-basic-chat-telemetry-btn.modus-wc-btn {
+  height: auto !important;
+  min-height: var(--modus-wc-size-sm) !important;
+  align-items: center !important;
+}
+
+/**
+ * AiUxPromptComposerSurface in the thread footer (agentic window + drawer).
+ * Pairs with `AiUxGradientFrame.css` (`--prompt-composer` glow + focus ring).
+ * Shell uses base-100; nested borderless text-input uses base-page for contrast in light and dark.
+ */
+.agentic-basic-chat-shell .ai-ux-gradient-frame--prompt-composer .ai-ux-gradient-frame__inner {
+  background-color: var(--modus-wc-color-base-100) !important;
+}
+
+.agentic-basic-chat-shell .ai-ux-prompt-surface modus-wc-text-input {
+  width: 100%;
+}
+
+.agentic-basic-chat-shell .ai-ux-prompt-surface modus-wc-text-input .modus-wc-text-input {
+  background-color: var(--modus-wc-color-base-page) !important;
+  border: none !important;
+  border-radius: 0.5rem;
+  box-shadow: none !important;
+}
+
+.agentic-basic-chat-shell .ai-ux-prompt-surface modus-wc-text-input input {
+  background-color: transparent !important;
+  padding-block: var(--modus-wc-spacing-md, 1rem) !important;
+  padding-inline: var(--modus-wc-spacing-md, 1rem) !important;
+}
+
+/* Agentic chat drawer panel host */
+modus-wc-utility-panel.agentic-chat-drawer-panel {
+  /* Modus body slot padding token — zero so embedded chat isn't double-inset; header uses `px-4`. */
+  --modus-wc-utility-panel-padding: 0;
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: auto !important;
+  height: auto !important;
+  max-height: 100% !important;
+  display: block !important;
+  width: min(100%, var(--modus-wc-utility-panel-width)) !important;
+  max-width: 28rem !important;
+  min-width: 0 !important;
+}
+
+modus-wc-utility-panel.agentic-chat-drawer-panel > .modus-wc-utility-panel {
+  top: 0 !important;
+  bottom: 0 !important;
+  height: auto !important;
+  max-height: 100% !important;
+}
+
+/* Closed: strip host layout to zero so main column is full-width and clicks reach page controls */
+modus-wc-utility-panel.agentic-chat-drawer-panel.agentic-chat-drawer-panel--collapsed {
+  width: 0 !important;
+  min-width: 0 !important;
+  max-width: 0 !important;
+  overflow: hidden !important;
+  border-left-width: 0 !important;
+  box-shadow: none !important;
+  pointer-events: none !important;
+}
+
+modus-wc-utility-panel.agentic-chat-drawer-panel .modus-wc-utility-panel-content {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  overflow: hidden !important;
+}
+
+modus-wc-utility-panel.agentic-chat-drawer-panel
+  .modus-wc-utility-panel-content
+  .modus-wc-utility-panel-body {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 0% !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+modus-wc-utility-panel.agentic-chat-drawer-panel .agentic-chat-drawer-body-slot {
+  flex: 1 1 0% !important;
+  min-height: 0 !important;
+  min-width: 0 !important;
+  height: 100% !important;
+}
+
+modus-wc-utility-panel.agentic-chat-drawer-panel .agentic-basic-chat-shell {
+  flex: 1 1 0% !important;
+  min-height: 0 !important;
+  height: 100% !important;
+}
+
+/* Agentic Chat Window — embedded chat column below shell header */
+.agentic-chat-window-workspace-body {
+  flex: 1 1 0%;
+  min-height: 0;
+  min-width: 0;
+}
+
+.agentic-chat-window-workspace-chat {
+  display: flex;
+  flex: 1 1 0%;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.agentic-chat-window-workspace-chat > .agentic-basic-chat-shell {
+  flex: 1 1 0% !important;
+  min-height: 0 !important;
+  height: 100% !important;
+}
+
+.agentic-chat-window-floating-panel .agentic-basic-chat-shell,
+[role="application"][aria-label="Agentic chat workspace"] .agentic-basic-chat-shell {
+  flex: 1 1 0% !important;
+  min-height: 0 !important;
+}
+
+.agentic-chat-window-floating-panel .agentic-basic-chat-shell > [role="log"],
+[role="application"][aria-label="Agentic chat workspace"] .agentic-basic-chat-shell > [role="log"] {
+  flex: 1 1 0%;
+  min-height: 0;
+}
+
+.agentic-chat-window-floating-panel .agentic-basic-chat-shell > .border-t,
+[role="application"][aria-label="Agentic chat workspace"] .agentic-basic-chat-shell > .border-t {
+  flex-shrink: 0;
+}

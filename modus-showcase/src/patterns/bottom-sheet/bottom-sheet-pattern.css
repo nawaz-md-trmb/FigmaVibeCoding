@@ -1,0 +1,57 @@
+/**
+ * Bottom sheet pattern — elevated panel host (Trimble Modus blueprint).
+ * Use on the draggable role="dialog" surface whose height is driven in JS.
+ * Pair with open/close classes (e.g. modus-bottom-sheet-panel--open) for slide animations.
+ */
+
+.modus-bottom-sheet-panel {
+  outline: none;
+
+  position: absolute;
+  bottom: 0;
+  left: 1rem;
+  right: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+
+  display: flex;
+  flex-direction: column;
+
+  max-height: calc(100dvh - 1rem);
+  width: auto;
+  max-width: min(40rem, calc(100dvw - 2rem));
+
+  border-radius: 0.75rem 0.75rem 0 0;
+  border-width: 1px 1px 0;
+  border-style: solid;
+  border-color: var(--modus-wc-color-base-200);
+
+  background-color: var(--modus-wc-color-base-page);
+
+  box-shadow:
+    var(--app-elevation-md),
+    0 -20px 50px -8px color-mix(in srgb, var(--modus-wc-color-base-content) 22%, transparent),
+    0 -6px 16px color-mix(in srgb, var(--modus-wc-color-base-content) 12%, transparent);
+
+  transform: translate3d(0, 100%, 0);
+}
+
+.modus-bottom-sheet-panel.modus-bottom-sheet-panel--open {
+  transform: translate3d(0, 0, 0);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .modus-bottom-sheet-panel {
+    transition-property: transform, height;
+    transition-duration: 280ms, 150ms;
+    transition-timing-function: cubic-bezier(0.32, 0.72, 0, 1), cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modus-bottom-sheet-panel {
+    transition-property: height;
+    transition-duration: 150ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}

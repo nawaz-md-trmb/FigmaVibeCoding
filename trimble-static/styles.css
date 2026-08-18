@@ -1,0 +1,668 @@
+:root {
+  --navy: #041e36;
+  --navy-mid: #0a3358;
+  --gray-9: #353a40;
+  --gray-10: #171c1e;
+  --orange: #fbad26;
+  --white: #ffffff;
+  --off-white: #f4f5f8;
+  --muted: #5a5f66;
+  --line: #e0e1e9;
+  --font: "Open Sans", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font);
+  color: var(--gray-9);
+  background: var(--white);
+  line-height: 1.5;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a,
+button,
+input,
+select,
+.frozen {
+  pointer-events: none;
+  cursor: default;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--navy-mid);
+  margin: 0 0 12px;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+.wrap {
+  width: min(1180px, calc(100% - 64px));
+  margin: 0 auto;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 12px 28px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 2px solid transparent;
+  white-space: nowrap;
+}
+
+.btn-fill {
+  background: var(--orange);
+  color: var(--gray-9);
+  border-color: var(--orange);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--white);
+  border-color: var(--white);
+}
+
+.btn-ghost-dark {
+  background: transparent;
+  color: var(--gray-9);
+  border-color: var(--gray-9);
+}
+
+/* Header */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--navy);
+  color: var(--white);
+}
+
+.header-inner {
+  width: min(1280px, calc(100% - 40px));
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  min-height: 72px;
+}
+
+.logo {
+  height: 28px;
+  width: auto;
+  flex-shrink: 0;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-left: auto;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.nav a {
+  color: var(--white);
+}
+
+.header-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.cart {
+  width: 22px;
+  height: 22px;
+  border: 1.5px solid var(--white);
+  border-radius: 4px;
+  position: relative;
+}
+
+.cart::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 6px;
+  border: 1.5px solid var(--white);
+  border-bottom: 0;
+  border-radius: 4px 4px 0 0;
+  top: -5px;
+  left: 4px;
+}
+
+.btn-sales {
+  min-height: 36px;
+  padding: 8px 16px;
+  font-size: 12px;
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  min-height: 720px;
+  background: #1a1a1a center / cover no-repeat;
+  color: var(--white);
+  display: flex;
+  align-items: flex-end;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right, rgb(4 30 54 / 72%) 0%, rgb(4 30 54 / 18%) 55%, rgb(4 30 54 / 8%) 100%),
+    linear-gradient(to top, rgb(4 30 54 / 70%) 0%, rgb(4 30 54 / 20%) 45%, rgb(4 30 54 / 40%) 100%);
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 1;
+  width: min(1180px, calc(100% - 64px));
+  margin: 0 auto 88px;
+  max-width: 760px;
+  margin-left: max(32px, calc((100% - 1180px) / 2));
+}
+
+.hero h1 {
+  font-size: clamp(42px, 6vw, 76px);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  margin-bottom: 20px;
+}
+
+.hero h1 span {
+  font-size: 0.45em;
+  vertical-align: super;
+}
+
+.hero p {
+  font-size: 18px;
+  line-height: 1.55;
+  max-width: 620px;
+  color: rgb(255 255 255 / 92%);
+}
+
+/* What we do */
+.section {
+  padding: 88px 0;
+}
+
+.section-head {
+  max-width: 720px;
+  margin-bottom: 40px;
+}
+
+.section-head h2 {
+  font-size: clamp(28px, 3.4vw, 42px);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--gray-10);
+  margin-bottom: 16px;
+}
+
+.section-head p {
+  font-size: 16px;
+  color: var(--muted);
+  max-width: 640px;
+}
+
+.industry-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+.industry-card {
+  background: var(--white);
+}
+
+.industry-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.industry-card h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 14px 0 6px;
+  color: var(--gray-10);
+}
+
+.industry-card p {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* Stats */
+.stats {
+  background: var(--off-white);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin: 40px 0 48px;
+}
+
+.stat-card {
+  background: var(--white);
+  padding: 32px 28px;
+  border-top: 4px solid var(--navy-mid);
+}
+
+.stat-card h3 {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.metric {
+  margin-bottom: 22px;
+}
+
+.metric strong {
+  display: block;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--navy-mid);
+  margin-bottom: 6px;
+}
+
+.metric span {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.center {
+  text-align: center;
+}
+
+/* Ready / Turn */
+.turn {
+  position: relative;
+  min-height: 560px;
+  color: var(--white);
+  background: #123 center / cover no-repeat;
+  display: flex;
+  align-items: center;
+}
+
+.turn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgb(4 30 54 / 55%);
+}
+
+.turn-copy {
+  position: relative;
+  z-index: 1;
+  width: min(640px, calc(100% - 64px));
+  margin-left: max(32px, calc((100% - 1180px) / 2));
+}
+
+.turn h2 {
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+
+.turn p {
+  font-size: 16px;
+  margin-bottom: 12px;
+  max-width: 520px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+/* Sports */
+.sports {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 480px;
+}
+
+.sports-copy {
+  background: var(--navy);
+  color: var(--white);
+  padding: 72px 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sports-copy .eyebrow {
+  color: var(--orange);
+}
+
+.sports-copy h2 {
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 400;
+  margin-bottom: 16px;
+}
+
+.sports-copy p {
+  color: rgb(255 255 255 / 85%);
+  margin-bottom: 28px;
+  max-width: 460px;
+}
+
+.sports img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  min-height: 420px;
+}
+
+/* Stories */
+.tabs {
+  display: flex;
+  gap: 8px;
+  overflow: hidden;
+  margin: 32px 0 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.tab {
+  padding: 12px 16px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 3px solid transparent;
+  white-space: nowrap;
+}
+
+.tab.is-on {
+  color: var(--gray-10);
+  border-bottom-color: var(--orange);
+}
+
+.story {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.story img {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+}
+
+.story h3 {
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 16px;
+}
+
+.story p {
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+
+/* Insights */
+.insights-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 36px;
+}
+
+.insight-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 20px;
+}
+
+.insight {
+  background: var(--off-white);
+}
+
+.insight img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.insight-body {
+  padding: 20px;
+}
+
+.insight h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.insight p {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.kicker {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--navy-mid);
+  margin-bottom: 8px;
+}
+
+/* Partners */
+.partner-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px 24px;
+  align-items: center;
+  margin: 40px 0 40px;
+}
+
+.partner-grid img {
+  max-height: 56px;
+  width: auto;
+  margin: 0 auto;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.85;
+}
+
+/* Support band */
+.support {
+  background: var(--orange);
+  padding: 48px 0;
+}
+
+.support-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.support h2 {
+  font-size: 28px;
+  font-weight: 400;
+  max-width: 640px;
+}
+
+.btn-navy {
+  background: var(--navy);
+  color: var(--white);
+  border-color: var(--navy);
+}
+
+/* Footer */
+.site-footer {
+  background: var(--navy);
+  color: var(--white);
+  padding: 64px 0 28px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.footer-grid h3 {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  color: var(--orange);
+}
+
+.footer-grid ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-grid li {
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: rgb(255 255 255 / 85%);
+}
+
+.socials {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.socials svg {
+  display: block;
+}
+
+.legal {
+  border-top: 1px solid rgb(255 255 255 / 18%);
+  padding-top: 24px;
+  display: grid;
+  gap: 16px;
+}
+
+.legal-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.legal p {
+  font-size: 13px;
+  color: rgb(255 255 255 / 75%);
+  max-width: 920px;
+}
+
+.legal-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  font-size: 12px;
+  color: rgb(255 255 255 / 75%);
+}
+
+.privacy-icon {
+  height: 14px;
+  width: auto;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+@media (max-width: 1100px) {
+  .industry-grid,
+  .stats-grid,
+  .insight-grid,
+  .partner-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .sports,
+  .story,
+  .insights-head,
+  .support-inner {
+    grid-template-columns: 1fr;
+    display: block;
+  }
+
+  .nav {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .industry-grid,
+  .stats-grid,
+  .insight-grid,
+  .partner-grid,
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hero {
+    min-height: 520px;
+  }
+
+  .header-meta span:not(.btn) {
+    display: none;
+  }
+}

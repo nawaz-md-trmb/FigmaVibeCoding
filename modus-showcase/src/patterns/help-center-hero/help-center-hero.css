@@ -1,0 +1,88 @@
+/* Help Center Hero: card 4px border radius */
+[data-help-center-hero] modus-wc-card article,
+[data-help-center-hero] modus-wc-card .modus-wc-card {
+  border-radius: 4px !important;
+}
+
+/* Help Center Hero: cards equal height (same as related resources) */
+[data-help-center-hero] .help-center-hero-cards-grid {
+  align-items: stretch;
+}
+[data-help-center-hero] .help-center-hero-cards-grid > modus-wc-card,
+[data-help-center-hero] .help-center-hero-cards-grid > modus-wc-card article,
+[data-help-center-hero] .help-center-hero-cards-grid > modus-wc-card .modus-wc-card {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+[data-help-center-hero] .help-center-hero-cards-grid > modus-wc-card .modus-wc-card-body {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 !important;
+  min-height: 0 !important;
+  justify-content: space-between !important;
+}
+
+/* Help Center Hero: search input 4px border radius + contain to column */
+[data-help-center-hero] modus-wc-text-input .modus-wc-text-input.modus-wc-input {
+  border-radius: 4px !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+}
+[data-help-center-hero] .help-center-hero-search-col modus-wc-text-input {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* Help Center Hero: prevent search icon from shrinking (production fix) */
+[data-help-center-hero] modus-wc-text-input .modus-wc-text-input-icon:not(.modus-wc-text-input-icon-custom) {
+  min-width: var(--modus-wc-line-height-sm, 1.25rem) !important;
+  min-height: var(--modus-wc-line-height-sm, 1.25rem) !important;
+  width: var(--modus-wc-line-height-sm, 1.25rem) !important;
+  height: var(--modus-wc-line-height-sm, 1.25rem) !important;
+  flex-shrink: 0 !important;
+}
+
+/* Help Center Hero: text left, icon right in card links (flex space-between) */
+[data-help-center-hero] modus-wc-card modus-wc-button button {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+/* Help Center Hero: Ask AI link white with underline */
+[data-help-center-hero] .help-center-hero-ask-ai-link {
+  color: #fff !important;
+  text-decoration: underline !important;
+}
+
+/* Help Center Hero: container for responsive layout (mobile preview + viewport resize) */
+.help-center-hero-container,
+[data-help-center-hero].help-center-hero-container {
+  container-type: inline-size;
+  container-name: help-center-hero;
+}
+
+/* Help Center Hero: mobile layout when container ≤640px */
+@container help-center-hero (max-width: 640px) {
+  [data-help-center-hero] .help-center-hero-top-grid {
+    grid-template-columns: 1fr !important;
+  }
+  [data-help-center-hero] .help-center-hero-top-grid > *:first-child {
+    grid-column: 1;
+  }
+  [data-help-center-hero] .help-center-hero-cards-grid {
+    grid-template-columns: 1fr !important;
+  }
+  [data-help-center-hero] modus-wc-text-input .modus-wc-text-input.modus-wc-input {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+  [data-help-center-hero] .help-center-hero-cards-grid > modus-wc-card {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+}

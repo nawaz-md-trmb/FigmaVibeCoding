@@ -1,0 +1,109 @@
+.page {
+  padding: 27px 48px 40px 187px;
+  max-width: calc(187px + 1225px + 48px);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 2px 6px 2px 2px;
+  border: 1px solid var(--color-gray-4);
+  border-radius: 12px;
+  background: var(--color-white);
+}
+
+.chipIcon {
+  display: flex;
+  width: 16px;
+  height: 16px;
+  overflow: clip;
+  transform: scaleY(-1);
+}
+
+.chipIcon img {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.chipLabel {
+  padding: 0 6px;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: 0.15px;
+  color: var(--color-gray-8);
+}
+
+.title {
+  margin: 16px 0 0;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: 0.027px;
+  color: var(--color-gray-10);
+}
+
+.intro {
+  margin-top: 2px;
+  max-width: 811px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  letter-spacing: 0.021px;
+  color: var(--color-gray-10);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 395px);
+  gap: 16px 20px;
+  margin-top: 17px;
+}
+
+.accordion {
+  margin-top: 33px;
+  max-width: 1224px;
+}
+
+.accept {
+  margin-top: 33px;
+}
+
+.footer {
+  margin-top: 22px;
+  max-width: 1225px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: 0.15px;
+  color: #000;
+}
+
+.footer a {
+  color: var(--color-trimble-blue);
+  text-decoration: none;
+}
+
+.accepted {
+  background: var(--color-gray-light);
+  border-radius: 32px;
+  padding: 24px;
+  width: 1225px;
+  max-width: 100%;
+}
+
+.accepted h2 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  line-height: 27px;
+  color: var(--color-trimble-grey);
+}
+
+.accepted p {
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--color-trimble-gray);
+}

@@ -1,0 +1,378 @@
+/**
+ * Scoped chrome for the Agentic Chat Window left rail (Trimble AI–style reference).
+ * Requires `<aside class="agentic-chat-rail">…`.
+ */
+
+.agentic-chat-rail {
+  --agentic-rail-active-row-bg: color-mix(in srgb,
+      var(--modus-wc-color-primary) 14%,
+      var(--modus-wc-color-base-page));
+  --agentic-rail-rule: var(--modus-wc-color-base-200);
+  border-right: 1px solid var(--agentic-rail-rule);
+  box-sizing: border-box;
+  transition: width 0.2s ease-in-out;
+}
+
+/* Expanded rail width — mirrors doc preview (~280px cap); avoid Tailwind width utilities on the host */
+.agentic-chat-rail--expanded {
+  width: min(100%, 280px);
+  min-width: min(100%, 280px);
+  max-width: min(100%, 280px);
+}
+
+/* Icon-only column — align with Modus side-navigation collapsed rail (~4rem) */
+.agentic-chat-rail--collapsed {
+  width: 4rem;
+  min-width: 4rem;
+  max-width: 4rem;
+}
+
+.agentic-chat-rail--collapsed .agentic-chat-rail__header {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  padding-inline: 0.5rem;
+}
+
+.agentic-chat-rail--collapsed .agentic-chat-rail__new-chat {
+  flex: 0 0 auto;
+}
+
+.agentic-chat-rail--collapsed .agentic-chat-rail__scroll {
+  padding-inline: 0.125rem;
+  /* Reserve scrollbar width so icon column stays visually centered in the rail. */
+  scrollbar-gutter: stable;
+}
+
+.agentic-chat-rail--collapsed .agentic-chat-rail__divider {
+  margin-inline: 0.125rem;
+}
+
+.agentic-chat-rail--collapsed .agentic-chat-rail__footer {
+  padding-inline: 0.125rem;
+}
+
+/* Header / footer use ModusWcButton, not modus-wc-menu-item — center icon-only actions in collapsed rail */
+.agentic-chat-rail--collapsed .agentic-chat-rail__header>modus-wc-button:last-of-type,
+.agentic-chat-rail--collapsed .agentic-chat-rail__footer>modus-wc-button {
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.agentic-chat-rail--collapsed .agentic-chat-rail__header>modus-wc-button:last-of-type button,
+.agentic-chat-rail--collapsed .agentic-chat-rail__footer>modus-wc-button button {
+  justify-content: center !important;
+}
+
+/*
+ * New chat / Settings captions: relying on `[hidden]` on nodes inside modus-wc-button is unreliable —
+ * the trigger’s shadow/flex styling can override the UA `hidden` hint after resize (e.g. maximize),
+ * until the rail toggles again. Hide from the rail collapsed class instead.
+ */
+.agentic-chat-rail--collapsed .agentic-chat-rail__btn-label-expanded {
+  display: none !important;
+}
+
+.agentic-chat-rail--collapsed .agentic-chat-rail__section-heading,
+.agentic-chat-rail--collapsed .agentic-chat-rail__group-heading {
+  display: none !important;
+}
+
+.agentic-chat-rail--collapsed modus-wc-menu-item .modus-wc-menu-item-label,
+.agentic-chat-rail--collapsed modus-wc-menu-item .modus-wc-menu-item-labels {
+  display: none !important;
+}
+
+.agentic-chat-rail--collapsed modus-wc-menu-item .modus-wc-menu-item-end-icon {
+  display: none !important;
+}
+
+.agentic-chat-rail--collapsed modus-wc-menu-item .modus-wc-menu-item button {
+  justify-content: center !important;
+}
+
+/* Button’s only flex child is .modus-wc-menu-item-content at width 100% — center the row inside it;
+   strip label gutter on start-icon so emblems/read icons sit centered in the 4rem rail. */
+.agentic-chat-rail--collapsed modus-wc-menu-item .modus-wc-menu-item button .modus-wc-menu-item-content {
+  justify-content: center !important;
+}
+
+.agentic-chat-rail--collapsed modus-wc-menu-item .modus-wc-menu-item button .modus-wc-menu-item-content [slot="start-icon"] {
+  padding-inline-end: 0 !important;
+}
+
+/* Icon-only agent rows: square active/hover chip centered in the 4rem rail (not a full-width tall pill). */
+.agentic-chat-rail--collapsed modus-wc-menu-item {
+  display: flex !important;
+  flex-shrink: 0 !important;
+  justify-content: center !important;
+  align-items: center !important;
+  /* Host is a flex child of the inner `ul` (column + default align-items: stretch) — pin to rail center. */
+  align-self: center !important;
+  margin-inline: auto !important;
+  padding-inline: 0 !important;
+  box-sizing: border-box;
+  width: 2.5rem !important;
+  min-width: 2.5rem !important;
+  max-width: 2.5rem !important;
+}
+
+.agentic-chat-rail--collapsed modus-wc-menu-item .modus-wc-menu-item {
+  box-sizing: border-box;
+  display: flex !important;
+  flex-shrink: 0;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 2.5rem !important;
+  min-width: 2.5rem !important;
+  max-width: 2.5rem !important;
+  height: 2.5rem !important;
+  min-height: 2.5rem !important;
+  max-height: 2.5rem !important;
+  aspect-ratio: 1 !important;
+  margin-inline: 0 !important;
+  padding: 0 !important;
+}
+
+/* Match idle corners to hover/active — Modus defaults `border-radius: 0` on the inner button. */
+.agentic-chat-rail--collapsed modus-wc-menu-item .modus-wc-menu-item button {
+  box-sizing: border-box;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  padding-inline: 0 !important;
+  border-radius: 0.5rem !important;
+}
+
+/* Hover tint stays inside the square row (menu column no longer stretch-wide). */
+.agentic-chat-rail--collapsed modus-wc-menu-item .modus-wc-menu-item:not(.modus-wc-menu-item-active) button:hover {
+  background-color: var(--modus-wc-color-base-200) !important;
+}
+
+[data-theme^="modus-modern-dark"] .agentic-chat-rail {
+  --agentic-rail-active-row-bg: color-mix(in srgb,
+      var(--modus-wc-color-primary) 22%,
+      var(--modus-wc-color-base-100));
+}
+
+.agentic-chat-rail__header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  padding-inline: 1rem;
+  padding-block: 0.75rem 0.5rem;
+}
+
+.agentic-chat-rail__new-chat {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.agentic-chat-rail__new-chat modus-wc-icon:first-of-type {
+  flex-shrink: 0;
+}
+
+/* Agent emblems — align with `modus-wc-icon` `size="md"` on Explore Agents (1.5rem font-size in package).
+   Host-sized only: `customClass` applies inside shadow, not `<modus-wc-logo>`. Do not `overflow: hidden`:
+   product SVGs use large viewBoxes; clipping showed a pinhole sliver. Fixed host box scales the glyph. */
+.agentic-chat-rail__agent-emblem {
+  display: inline-flex;
+  box-sizing: border-box;
+  flex: 0 0 1.5rem;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  min-width: 1.5rem;
+  min-height: 1.5rem;
+}
+
+.agentic-chat-rail__agent-emblem modus-wc-logo {
+  display: block !important;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  width: 1.5rem !important;
+  height: 1.5rem !important;
+  min-width: 1.5rem !important;
+  min-height: 1.5rem !important;
+  max-width: 1.5rem !important;
+  max-height: 1.5rem !important;
+}
+
+.agentic-chat-rail__section-heading {
+  display: block;
+  padding-inline: 0;
+  padding-block: 0 0.5rem;
+  font-size: var(--text-sm, 14px);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--modus-wc-color-base-content);
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.agentic-chat-rail__conversations-heading-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding-block: 0 0.5rem;
+}
+
+.agentic-chat-rail__group-heading {
+  display: block;
+  padding-block: 0.5rem 0.375rem;
+  font-size: var(--text-xs, 12px);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--modus-wc-color-base-content-low-contrast);
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.agentic-chat-rail__scroll {
+  padding-inline: 1rem;
+  padding-block: 0.25rem 0.75rem;
+}
+
+.agentic-chat-rail__section-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.agentic-chat-rail__history-section {
+  min-width: 0;
+}
+
+.agentic-chat-rail__divider modus-wc-divider {
+  margin-block: 0 !important;
+}
+
+.agentic-chat-rail__divider {
+  margin-inline: 1rem;
+  margin-block: 0;
+}
+
+/* Dividers inside the scroll stack share the scroll’s horizontal padding; extra
+   margin-inline here doubled inset vs the header divider (full rail width match). */
+.agentic-chat-rail__scroll .agentic-chat-rail__divider {
+  margin-inline: 0;
+}
+
+.agentic-chat-rail__footer {
+  margin-top: auto;
+  padding-inline: 1rem;
+  padding-block: 0.75rem;
+  border-top: 1px solid var(--agentic-rail-rule);
+}
+
+.agentic-chat-rail__footer modus-wc-button button {
+  font-weight: 400 !important;
+}
+
+/* Layout lives on the inner `ul.modus-wc-menu`, not the custom-element host (shadow / projection). */
+.agentic-chat-rail modus-wc-menu .modus-wc-menu {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100%;
+  /* Vertical rhythm between rows — tighter than default Modus menu stacking */
+  gap: var(--modus-wc-spacing-xs, 0.25rem) !important;
+}
+
+/* Collapsed: center icon rows in the ul (cross-axis default was stretch → icons hugged the left edge). */
+.agentic-chat-rail--collapsed modus-wc-menu .modus-wc-menu {
+  align-items: center !important;
+  gap: var(--modus-wc-spacing-2xs, 0.125rem) !important;
+}
+
+/* Unified row shape — hover/focus backgrounds paint the `li`; match active pill radius */
+.agentic-chat-rail modus-wc-menu-item .modus-wc-menu-item {
+  border-radius: 0.5rem !important;
+}
+
+/* Selected agent row — pill tint + primary label/icons */
+.agentic-chat-rail modus-wc-menu-item .modus-wc-menu-item.modus-wc-menu-item-active {
+  background-color: var(--agentic-rail-active-row-bg) !important;
+}
+
+.agentic-chat-rail modus-wc-menu-item .modus-wc-menu-item.modus-wc-menu-item-active button {
+  color: var(--modus-wc-color-primary) !important;
+}
+
+.agentic-chat-rail modus-wc-menu-item .modus-wc-menu-item.modus-wc-menu-item-active button:hover {
+  color: var(--modus-wc-color-primary) !important;
+}
+
+.agentic-chat-rail modus-wc-menu-item .modus-wc-menu-item.modus-wc-menu-item-active modus-wc-icon {
+  color: var(--modus-wc-color-primary) !important;
+}
+
+/* Emblems stay full-color; no primary tint on SVG product marks */
+.agentic-chat-rail modus-wc-menu-item .modus-wc-menu-item.modus-wc-menu-item-active .agentic-chat-rail__agent-emblem modus-wc-logo {
+  opacity: 1;
+}
+
+/* Conversation titles truncate inside narrow rail */
+.agentic-chat-rail modus-wc-menu-item .modus-wc-menu-item-label,
+.agentic-chat-rail modus-wc-menu-item .modus-wc-menu-item-labels {
+  min-width: 0 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+/* Assistant turn — product emblem beside transcript (trimmed intelligence mock) */
+.agentic-chat-thread__agent-emblem {
+  display: flex;
+  flex-shrink: 0;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 0.125rem;
+}
+
+/*
+ * Mobile / narrow shell: same rail content as desktop, but presented as a left
+ * drawer. Keep **closed** state off-screen with explicit transform (do not rely
+ * on utility-only translate — import order vs @layer can drop it on first paint).
+ */
+/* Sits inside the shell region below the Trimble AI header (not full workspace height). */
+.agentic-chat-rail.agentic-chat-rail--mobile-overlay {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  z-index: 100;
+  min-height: 0;
+  min-width: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0.75rem;
+  box-shadow: var(--app-elevation-md);
+  transition: transform 0.2s ease-out, visibility 0.2s ease-out;
+}
+
+.agentic-chat-rail.agentic-chat-rail--mobile-overlay.agentic-chat-rail--overlay-closed {
+  transform: translateX(-100%);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.agentic-chat-rail.agentic-chat-rail--mobile-overlay.agentic-chat-rail--overlay-open {
+  transform: translateX(0);
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.agentic-chat-thread__agent-emblem modus-wc-logo {
+  display: flex;
+  width: 2rem;
+  height: 2rem;
+  min-width: 2rem;
+  min-height: 2rem;
+  max-width: 2rem;
+  max-height: 2rem;
+  align-items: center;
+  justify-content: center;
+}
