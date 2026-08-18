@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/FigmaVibeCoding/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yard Command — North Yard</title>
+    <link
+      rel="preload"
+      href="https://cdn.jsdelivr.net/npm/@trimble-oss/modus-icons@1/dist/modus-outlined/fonts/modus-icons.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="/FigmaVibeCoding/modus-web-components/modus-icons.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@trimble-oss/modus-icons@1/dist/modus-outlined/css/modus-outlined-icons.css"
+    />
+    <script>
+      (function () {
+        const stored = localStorage.getItem('theme')
+        const valid = ['light', 'dark', 'system']
+        const theme = valid.includes(stored) ? stored : 'system'
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+        const resolved = theme === 'system' ? (prefersDark ? 'dark' : 'light') : theme
+        const modusTheme = resolved === 'dark' ? 'modus-modern-dark' : 'modus-modern-light'
+        document.documentElement.setAttribute('data-theme', modusTheme)
+        document.documentElement.setAttribute('data-mode', theme)
+        document.documentElement.classList.add(resolved)
+        localStorage.setItem('modus-theme-config', JSON.stringify({ theme: modusTheme }))
+      })()
+    </script>
+    <script type="module" crossorigin src="/FigmaVibeCoding/assets/index-Y4Oetzo_.js"></script>
+    <link rel="stylesheet" crossorigin href="/FigmaVibeCoding/assets/index-C8SVzY5K.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
